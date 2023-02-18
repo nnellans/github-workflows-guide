@@ -160,8 +160,10 @@ jobs:
     # run all Steps in this Job on this Container, only for Steps that don't already specify a Container
     # only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
     # 'run' Steps inside a Container will default to the sh shell, overwrite with jobid.defaults.run, or step.shell
-    container: node:14.16 # shortcut syntax
-    container: # full syntax
+    # shortcut syntax
+    container: node:14.16
+    # full syntax
+    container:
       image: node:14.16
       credentials:
         username:
