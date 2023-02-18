@@ -11,7 +11,8 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 ```
 - The value can include expressions, and can reference the contexts of 'github' and 'inputs'
 
-# TRIGGERS:  https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+# TRIGGERS:
+https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
 option 1: single event with no options
 ```yaml
 on: push
@@ -30,7 +31,8 @@ on:
 - only one event needs to occur to trigger the workflow
 - if multiple events happen at the same time, then multiple runs of the workflow will trigger
 
-# option 3: events with options
+option 3: events with options
+```yaml
 on:
   push:
     branches:
@@ -38,8 +40,10 @@ on:
   issues:
     types:
     - opened
+```
 
-# option 4: if this workflow is used as a template (reusable workflow)
+option 4: if this workflow is used as a template (reusable workflow)
+```yaml
 on:
   workflow_call:
     inputs: # input parameters
@@ -57,13 +61,14 @@ on:
       outputName1:
         description:
         value:
+```
 
-#####################################
-## GITHUB_TOKEN PERMISSIONS:  https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
-#####################################
-# if you want to modify the default permissions granted to the GITHUB_TOKEN
-# workflow-level, but can also be defined at the Job-level
+# GITHUB_TOKEN PERMISSIONS
+https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+- if you want to modify the default permissions granted to the GITHUB_TOKEN
+- workflow-level, but can also be defined at the Job-level
 
+```yaml
 # option 1: full syntax
 permissions:
   actions: read | write | none
@@ -79,50 +84,62 @@ permissions:
   repository-projects: read | write | none
   security-events: read | write | none
   statuses: read | write | none
+
 # option 2: shortcut syntax to provide read or write access for all scopes
 permissions: read-all | write-all
+
 # option 3: shortcut syntax to disable permissions to all scopes
 permissions: {}
+```
 
-#####################################
-## DEFAULTS:  https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
-#####################################
-# create a map of default settings
-# workflow-level, but can also be defined at the Job-level. the most specific defaults wins
+# DEFAULTS
+https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
+- create a map of default settings
+- workflow-level, but can also be defined at the Job-level. the most specific defaults wins
 
+```yaml
 defaults:
+```
 
-#####################################
-## CONCURRENCY:  https://docs.github.com/en/actions/using-jobs/using-concurrency
-#####################################
+# CONCURRENCY
+https://docs.github.com/en/actions/using-jobs/using-concurrency
 
+```yaml
 concurrency:
+```
 
-#####################################
-## VARIABLES:  https://docs.github.com/en/actions/learn-github-actions/variables
-#####################################
-# workflow-level, but can also be defined at the Job-level and Step-level. the most specific variable wins
-# cannot reference other variables in the same map
+# VARIABLES
+https://docs.github.com/en/actions/learn-github-actions/variables
+- workflow-level, but can also be defined at the Job-level and Step-level. the most specific variable wins
+- cannot reference other variables in the same map
 
+```yaml
+# defining variables
 env:
   KEY: value
   KEY: value
-# use inside the runner, just access an environment variable as usual
-#     linux:  $KEY
-#     windows powershell:  $env:KEY
-# use workflow-level environment variables outside a runner
-#     ${{ env.KEY }}
+
+# use a variable inside of a script on the runner, just access an environment variable as usual
+linux:  $KEY
+windows powershell:  $env:KEY
+
+# use a variable later in the workflow
+${{ env.KEY }}
+
 # there are many default environment variables, most also have a matching value in the github context
-#     $GITHUB_REF and ${{ github.ref }}
+$GITHUB_REF and ${{ github.ref }}
+
 # use configuration variables defined in GitHub UI
-#     ${{ vars.CONFIGKEY }}
+${{ vars.CONFIGKEY }}
+
 # use secrets defined in GitHub UI
-#     ${{ secrets.SECRETKEY }}
+${{ secrets.SECRETKEY }}
+```
 
-#####################################
-## JOBS:  https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
-#####################################
+# JOBS
+https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
 
+```yaml
 jobs:
 
   # Option 1 - Normal Job
@@ -190,8 +207,8 @@ jobs:
       with:
         param1: value1
         param2: value2
-        args: 'something' # GitHub passes this to the Docker container's ENTRYPOINT.  This is used instead of the CMD instruction in your Dockerfile
-        entrypoint: 'something' # this is used instead of the ENTRYPOINT instruction in your Dockerfile
+        args: 'something' # GitHub passes this to the Docker container's ENTRYPOINT.  This overwrites the CMD instruction in your Dockerfile
+        entrypoint: 'something' # this overwrite the ENTRYPOINT instruction in your Dockerfile
 
     # Step that runs a Script
     - name: something2
@@ -222,6 +239,8 @@ jobs:
       param1: ${{ secrets.someSecret }}
       param2: ${{ secretos.someOtherSecret }}
     secrets: inherit # pass all of the secrets from the parent workflow to the template. this includes org, repo, and environment secrets from the parent workflow
+```
 
-# official github actions: https://github.com/orgs/actions/repositories
-# official azure actions: https://github.com/marketplace?query=Azure&type=actions&verification=verified_creator
+# LINKS
+- official github actions: https://github.com/orgs/actions/repositories
+- official azure actions: https://github.com/marketplace?query=Azure&type=actions&verification=verified_creator
