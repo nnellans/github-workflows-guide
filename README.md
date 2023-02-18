@@ -222,8 +222,8 @@ jobs:
         multi-line
         command
 
+  # Option 2 - Job that calls a Template
   # https://docs.github.com/en/actions/using-workflows/reusing-workflows  
-  # Job that calls a Template
   # only the following parameters are supported in such a Job
   symbolicJobName:
     name:
