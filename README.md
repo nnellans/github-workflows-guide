@@ -1,28 +1,34 @@
-#####################################
-## WORKFLOW INFO
-#####################################
+# WORKFLOW INFO
 
-# name of the workflow as shown in the GitHub UI
+Name of the workflow as shown in the GitHub UI
+```yaml
 name: 'string' # optional, default is the path & name of the yaml file
+```
 
-# name to use for each run of the workflow
-# value can include expressions, and can reference the contexts of 'github' and 'inputs'
+Name to use for each run of the workflow
+```yaml
 run-name: 'string' # optional, default is specific to how your workflow was triggered
+```
+- The value can include expressions, and can reference the contexts of 'github' and 'inputs'
 
-#####################################
-## TRIGGERS:  https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
-#####################################
-
-# option 1: single event with no options
+# TRIGGERS:  https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+option 1: single event with no options
+```yaml
 on: push
+```
 
-# option 2: multiple events with no options
-# only one event needs to occur to trigger the workflow
-# if multiple events happen at the same time, then multiple runs of the workflow will trigger
+option 2: multiple events with no options
+```yaml
+# first form
 on: [push, fork]
+
+# second form
 on:
   - push
   - fork
+```
+- only one event needs to occur to trigger the workflow
+- if multiple events happen at the same time, then multiple runs of the workflow will trigger
 
 # option 3: events with options
 on:
