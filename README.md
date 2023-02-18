@@ -11,8 +11,8 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 ```
 - The value can include expressions, and can reference the contexts of 'github' and 'inputs'
 
-# TRIGGERS:
-https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+# TRIGGERS
+https://docs.github.com/en/actions/using-workflows/triggering-a-workflow <br />
 option 1: single event with no options
 ```yaml
 on: push
