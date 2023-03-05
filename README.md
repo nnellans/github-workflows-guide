@@ -53,7 +53,7 @@ on:
         value:
 ```
 
-- Only one event needs to occur to trigger the workflow
+- If multiple events are specified, only 1 event needs to occur to trigger the workflow
 - If multiple events happen at the same time, then multiple runs of the workflow will trigger
 
 # Permissions for the GITHUB_TOKEN
