@@ -53,13 +53,15 @@ on:
         value:
 ```
 
-- only one event needs to occur to trigger the workflow
-- if multiple events happen at the same time, then multiple runs of the workflow will trigger
+- Only one event needs to occur to trigger the workflow
+- If multiple events happen at the same time, then multiple runs of the workflow will trigger
 
 # Permissions for the GITHUB_TOKEN
 https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
-- use this if you want to modify the default permissions granted to the GITHUB_TOKEN
-- optional, the default can be set (by an admin) to either a 'permissive' preset or a 'restricted' preset (more info at the link above)
+- Use this if you want to modify the default permissions granted to the GITHUB_TOKEN
+- Optional, the default can be set (by an admin) to either a `permissive` preset or a `restricted` preset (more info at the link above)
+- As a good security practice, you should grant the GITHUB_TOKEN the least required access
+- When the `permissions` key is used, all unspecified permissions are set to `none`, with the exception of the `metadata` scope, which always gets `read` access.
 - Supported scopes for `permissions`: workflow-level, job-level
 
 ```yaml
@@ -88,20 +90,34 @@ permissions: {}
 
 # Default Settings
 https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
-- create a map of default settings
+- Creates a map of default settings that will be inherited
 - Supported scopes for `defaults`: workflow-level, job-level
   - The most specific defaults wins
 
 ```yaml
 defaults:
+  run:
+    shell: bash
+    working-directory: scripts
 ```
 
 # Concurrency Settings
 https://docs.github.com/en/actions/using-jobs/using-concurrency
+- Ensures that only one Workflow (or only one Job) from the specified concurrency group can run at a time
+- Optional
+- Supported scopes for `concurrency`: workflow-level, job-level
 
 ```yaml
+# option 1: specify a concurrency group with default settings
+concurrency: groupName
+
+# option 2: specify a concurrency group with custom settings
 concurrency:
+  group: groupName
+  cancel-in-progress: true # this will cancel any currently running workflows/jobs first, to ensure this will be the only one that runs
 ```
+- `groupName` can be any string or expression (but limited to the `github` context only)
+- Default behavior: If a Workflow/Job in the concurrency group is currently running, then any new Workflows/Jobs will be placed in pending state and will wait for the original Workflow/Job to finish. Only the latest Workflow/Job is kept in the pending state, all others will be cancelled.
 
 # Variables
 https://docs.github.com/en/actions/learn-github-actions/variables
@@ -122,34 +138,34 @@ windows powershell:  $env:KEY
 # use a variable in the workflow yaml:
 ${{ env.KEY }}
 
-# there are many default environment variables (see link above), most also have a matching value in the github context
+# there are many default environment variables (see link above)
+# most also have a matching value in the github context so you can use them in the workflow yaml
 $GITHUB_REF and ${{ github.ref }}
 
-# use configuration variables defined via the GitHub UI:
+# use configuration variables that are defined via the GitHub UI:
 ${{ vars.CONFIGKEY }}
 
-# use secrets defined via the GitHub UI:
+# use secrets that are defined via the GitHub UI:
 ${{ secrets.SECRETKEY }}
 ```
 
 # Jobs / Defining the work
-https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
 
+Normal Jobs:
+- https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
 ```yaml
 jobs:
-
-  # Option 1 - Normal Job
   symbolicJobName: # must be unique, start with a letter or underscore, and only contain letters, numbers, dashes, and underscores
     name: 'string' # friendly name that is shown in the GitHub UI
     runs-on: windows-latest | ubuntu-latest | macos-latest | self-hosted # specifies the Agent to run on
     needs: # Job dependencies
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
-    environment:
+    environment: # the environment to deploy to
     continue-on-error: true # allows the Workflow to pass if this Job fails
     timeout-minutes: 10 # max time a Job can run before being cancelled. optional, default is 360
     permissions: # job-level GITHUB_TOKEN permissions
     defaults: # job-level defaults
-    concurrency: # job-level concurrency
+    concurrency: # job-level concurrency group
     env: # job-level variables
     
     # https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
@@ -196,7 +212,7 @@ jobs:
     # list the Steps of this Job
     steps:
 
-    # standard Step that uses an Action
+    # Step that uses a GitHub Action
     - id: 'symbolicStepName'
       name: 'string' # friendly name that is shown in the GitHub UI
       if: # Step conditions, ${{ ... }} can optionally be used to enclose your condition
@@ -221,17 +237,20 @@ jobs:
       run: |
         multi-line
         command
+```
 
-  # Option 2 - Job that calls a Template
-  # https://docs.github.com/en/actions/using-workflows/reusing-workflows  
-  # only the following parameters are supported in such a Job
-  symbolicJobName:
+Jobs that calls a Template:
+- https://docs.github.com/en/actions/using-workflows/reusing-workflows
+- Only the following parameters are supported in such a Job
+```
+jobs:
+  symbolicJobName: # must be unique, start with a letter or underscore, and only contain letters, numbers, dashes, and underscores
     name: 'string' # friendly name that is shown in the GitHub UI
     needs: # Job dependencies
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
     permissions: # job-level GITHUB_TOKEN permissions
-    concurrency: # job-level concurrency
-    uses: org/repo/.github/workflows/file.yaml@ref # reference a Job template
+    concurrency: # job-level concurrency group
+    uses: org/repo/.github/workflows/file.yaml@ref # the Job template to reference
     with: # parameters to pass to the template, must match what is defined in the template
       param1: value1
       param2: value2
