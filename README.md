@@ -7,7 +7,7 @@ name: 'string' # optional, default is the path & name of the yaml file
 # name to use for each run of the workflow:
 run-name: 'string' # optional, default is specific to how your workflow was triggered
 ```
-- `run-name` can use expressions, and can reference the contexts of 'github' and 'inputs'
+- `run-name` can use expressions, and can reference the contexts of `github` and `inputs`
 
 # Triggers
 https://docs.github.com/en/actions/using-workflows/triggering-a-workflow <br />
