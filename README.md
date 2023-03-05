@@ -6,8 +6,8 @@ name: 'string' # optional, default is the path & name of the yaml file
 
 # name to use for each run of the workflow:
 run-name: 'string' # optional, default is specific to how your workflow was triggered
-# the value can include expressions, and can reference the contexts of 'github' and 'inputs'
 ```
+- `run-name` can use expressions, and can reference the contexts of 'github' and 'inputs'
 
 # Triggers
 https://docs.github.com/en/actions/using-workflows/triggering-a-workflow <br />
@@ -59,7 +59,7 @@ on:
 # Permissions for the GITHUB_TOKEN
 https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
 - use this if you want to modify the default permissions granted to the GITHUB_TOKEN
-- Supported scopes: workflow-level, job-level
+- Supported scopes for `permissions`: workflow-level, job-level
 
 ```yaml
 # option 1: full syntax
@@ -88,7 +88,7 @@ permissions: {}
 # Default Settings
 https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
 - create a map of default settings
-- Supported scopes: workflow-level, job-level (the most specific defaults wins)
+- Supported scopes for `defaults`: workflow-level, job-level (the most specific defaults wins)
 
 ```yaml
 defaults:
@@ -104,7 +104,7 @@ concurrency:
 # Variables
 https://docs.github.com/en/actions/learn-github-actions/variables
 - cannot reference other variables in the same map
-- Supported scopes: workflow-level, job-level, step-level (the most specific variable wins)
+- Supported scopes for `env`: workflow-level, job-level, step-level (the most specific variable wins)
 
 ```yaml
 # defining variables
@@ -138,9 +138,9 @@ jobs:
   # Option 1 - Normal Job
   symbolicJobName: # must be unique, start with a letter or underscore, and only contain letters, numbers, dashes, and underscores
     name: 'string' # friendly name that is shown in the GitHub UI
-    runs-on: windows-latest | ubuntu-latest | macos-latest # specifies the Agent to run on
+    runs-on: windows-latest | ubuntu-latest | macos-latest | self-hosted # specifies the Agent to run on
     needs: # Job dependencies
-    if: # Job condition, ${{ ... }} can optionally be used to enclose your condition
+    if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
     environment:
     continue-on-error: true # allows the Workflow to pass if this Job fails
     timeout-minutes: 10 # max time a Job can run before being cancelled. optional, default is 360
@@ -150,11 +150,13 @@ jobs:
     env: # job-level variables
     
     # https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
-    # run all Steps in this Job on this Container, only for Steps that don't already specify a Container
+    # run all Steps in this Job on the following Container (only for Steps that don't already specify their own Container)
     # only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
     # 'run' Steps inside a Container will default to the sh shell, overwrite with jobid.defaults.run, or step.shell
+    
     # shortcut syntax
     container: node:14.16
+    
     # full syntax
     container:
       image: node:14.16
@@ -194,7 +196,7 @@ jobs:
     # standard Step that uses an Action
     - id: 'symbolicStepName'
       name: 'string' # friendly name that is shown in the GitHub UI
-      if: # Step condition, ${{ ... }} can optionally be used to enclose your condition
+      if: # Step conditions, ${{ ... }} can optionally be used to enclose your condition
       continue-on-error: true # allows the Job to pass if this Step fails
       timeout-minutes: 10 # max time to run the Step before killing the process
       env: # Step-level variables
@@ -202,16 +204,16 @@ jobs:
       with:
         param1: value1
         param2: value2
-        args: 'something' # GitHub passes this to the Docker container's ENTRYPOINT.  This overwrites the CMD instruction in your Dockerfile
+        args: 'something' # this overwrites the CMD instruction in your Dockerfile
         entrypoint: 'something' # this overwrite the ENTRYPOINT instruction in your Dockerfile
 
-    # Step that runs a Script
+    # Step that runs a single-line Script
     - name: something2
       run: single-line command
-      shell: bash|pwsh|python|sh|cmd|powershell
+      shell: bash | pwsh | python | sh | cmd | powershell
       working-directory: ./temp
 
-    # Step that runs a Script
+    # Step that runs a multi-line Script
     - name: something3
       run: |
         multi-line
