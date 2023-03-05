@@ -111,7 +111,7 @@ permissions: {}
 
 # Default Settings
 [Documentation - Setting Default Values for Jobs](https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs)
-- Creates a map of default settings that will be inherited
+- Creates a map of default settings that will be inherited downstream
 - Supported scopes for `defaults`: workflow-level, job-level
   - The most specific defaults wins
 
