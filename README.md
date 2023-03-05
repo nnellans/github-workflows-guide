@@ -112,20 +112,20 @@ env:
   KEY: value
   KEY: value
 
-# use a variable inside of a script on the runner, just access an environment variable as usual
+# use a variable inside of a script on the runner by just accessing an environment variable as usual:
 linux:  $KEY
 windows powershell:  $env:KEY
 
-# use a variable later in the workflow
+# use a variable in the workflow yaml:
 ${{ env.KEY }}
 
-# there are many default environment variables, most also have a matching value in the github context
+# there are many default environment variables (see link above), most also have a matching value in the github context
 $GITHUB_REF and ${{ github.ref }}
 
-# use configuration variables defined in GitHub UI
+# use configuration variables defined via the GitHub UI:
 ${{ vars.CONFIGKEY }}
 
-# use secrets defined in GitHub UI
+# use secrets defined via the GitHub UI:
 ${{ secrets.SECRETKEY }}
 ```
 
