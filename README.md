@@ -36,7 +36,7 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 # option 1: single event with no options
 on: push
 
-#option 2: multiple events with no options
+# option 2: multiple events with no options
 # first form
 on: [push, fork]
 
