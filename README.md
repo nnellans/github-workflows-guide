@@ -89,7 +89,8 @@ permissions: {}
 # Default Settings
 https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
 - create a map of default settings
-- Supported scopes for `defaults`: workflow-level, job-level (the most specific defaults wins)
+- Supported scopes for `defaults`: workflow-level, job-level
+  - The most specific defaults wins
 
 ```yaml
 defaults:
@@ -105,7 +106,8 @@ concurrency:
 # Variables
 https://docs.github.com/en/actions/learn-github-actions/variables
 - cannot reference other variables in the same map
-- Supported scopes for `env`: workflow-level, job-level, step-level (the most specific variable wins)
+- Supported scopes for `env`: workflow-level, job-level, step-level
+  - The most specific variable wins
 
 ```yaml
 # defining variables
