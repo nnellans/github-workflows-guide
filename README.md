@@ -151,8 +151,9 @@ ${{ secrets.SECRETKEY }}
 
 # Jobs / Defining the work
 
-Normal Jobs:
-- https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
+## Normal Jobs:
+https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
+
 ```yaml
 jobs:
   symbolicJobName: # must be unique, start with a letter or underscore, and only contain letters, numbers, dashes, and underscores
@@ -160,89 +161,148 @@ jobs:
     runs-on: windows-latest | ubuntu-latest | macos-latest | self-hosted # specifies the Agent to run on
     needs: # Job dependencies
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
-    environment: # the environment to deploy to
     continue-on-error: true # allows the Workflow to pass if this Job fails
     timeout-minutes: 10 # max time a Job can run before being cancelled. optional, default is 360
     permissions: # job-level GITHUB_TOKEN permissions
     defaults: # job-level defaults
     concurrency: # job-level concurrency group
     env: # job-level variables
+      KEY: value
     
-    # https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
-    # run all Steps in this Job on the following Container (only for Steps that don't already specify their own Container)
-    # only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
-    # 'run' Steps inside a Container will default to the sh shell, overwrite with jobid.defaults.run, or step.shell
+    environment: # see more below
+    container: # see more below
+    services: # see more below
+    strategy: # see more below
     
-    # shortcut syntax
-    container: node:14.16
-    
-    # full syntax
-    container:
-      image: node:14.16
-      credentials:
-        username:
-        password:
-      env:
-      ports:
-      volumes:
-      options:
-    
-    # https://docs.github.com/en/actions/using-containerized-services/about-service-containers
-    # define service containers
-    services:
-      symbolicServiceName:
-        image: nginx
-        credentials:
-          username:
-          password:
-        env:
-        ports:
-        volumes:
-        options:
-    
-    # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
-    strategy:
-      fail-fast:
-      max-parallel:
-      matrix:
-    
+    # specify outputs of this Job
     # https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
-    outputs: # specify outputs of this Job
+    outputs:
     
     # list the Steps of this Job
     steps:
 
-    # Step that uses a GitHub Action
-    - id: 'symbolicStepName'
-      name: 'string' # friendly name that is shown in the GitHub UI
-      if: # Step conditions, ${{ ... }} can optionally be used to enclose your condition
-      continue-on-error: true # allows the Job to pass if this Step fails
-      timeout-minutes: 10 # max time to run the Step before killing the process
-      env: # Step-level variables
-      uses: actions/checkout@v3
-      with:
-        param1: value1
-        param2: value2
-        args: 'something' # this overwrites the CMD instruction in your Dockerfile
-        entrypoint: 'something' # this overwrite the ENTRYPOINT instruction in your Dockerfile
+      # Use a GitHub Action
+      - id: 'symbolicStepName'
+        name: 'string' # friendly name that is shown in the GitHub UI
+        if: # Step conditions, ${{ ... }} can optionally be used to enclose your condition
+        continue-on-error: true # allows the Job to pass if this Step fails
+        timeout-minutes: 10 # max time to run the Step before killing the process
+        env: # Step-level variables
+          KEY: value
+        uses: actions/checkout@v3
+        with:
+          param1: value1
+          param2: value2
+          args: 'something' # this overwrites the CMD instruction in your Dockerfile
+          entrypoint: 'something' # this overwrite the ENTRYPOINT instruction in your Dockerfile
 
-    # Step that runs a single-line Script
-    - name: something2
-      run: single-line command
-      shell: bash | pwsh | python | sh | cmd | powershell
-      working-directory: ./temp
+      # Run a single-line Script
+      - name: something2
+        run: single-line command
+        shell: bash | pwsh | python | sh | cmd | powershell
+        working-directory: ./temp
 
-    # How to specify a multi-line Script
-    - name: something3
-      run: |
-        multi-line
-        command
+      # Run a multi-line Script
+      - name: something3
+        run: |
+          multi-line
+          command
 ```
 
-Jobs that calls a Template:
-- https://docs.github.com/en/actions/using-workflows/reusing-workflows
+### Job.Environment
+- https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+- Specifies a GitHub environment to deploy to
+
+```yaml
+jobs:
+  symbolicJobName:
+    # option 1 - specify just an environment name
+    environment: envName
+    # option 2 - specify environment name and url
+    environment:
+      name: envName
+      url: someUrl
+```
+- `envName` can be a string or any expression (except for the `secrets` context)
+
+### Job.Container
+- https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
+- Defines a container that will run all Steps in this Job
+
+```yaml
+jobs:
+  symbolicJobName:
+    # option 1 - shortcut syntax specifying just the image
+    container: node:14.16
+    # option 2 - full syntax
+    container:
+      image: node:14.16
+      credentials: # used to login to the container registry
+        username:
+        password:
+      env: # specify environment variables inside the container
+        KEY: value
+      ports: # array of ports to expose on the container
+        - 8080:80 # maps port 8080 on the docker host to port 80 on the container
+      volumes: # array of volumes for the container to use, you can specify named Docker volumes, anonymous Docker volumes, or bind mounts on the host
+        - source:destinationPath
+      options: --cpus 1 # specifies additional options for the docker create command, --network is not supported
+```
+- only for Steps that don't already use their own Container
+- only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
+- `run` Steps inside of a Container will default to the `sh` shell, but you can override with `jobid.defaults.run` or `step.shell`
+
+### Job.Services
+- https://docs.github.com/en/actions/using-containerized-services/about-service-containers
+- Defines service container(s) that are used by your Job
+
+```yaml
+jobs:
+  symbolicJobName:
+    services:
+      symbolicServiceName: # label used to access the service container
+        image: nginx
+        credentials: # used to login to the container registry
+          username:
+          password:
+        env: # specify environment variables inside the service container
+          KEY: value
+        ports: # an array of ports to expose on the service container
+          - 80
+        volumes: # array of volumes for the container to use, you can specify named Docker volumes, anonymous Docker volumes, or bind mounts on the host
+          - source:destinationPath
+        options: --cpus 1 # specifies additional options for the docker create command, --network is not supported
+```
+- only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
+- not supported inside a composite action
+
+### Job.Strategy
+- Use variables to make one Job run multiple different times
+- https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+
+```yaml
+jobs:
+  symbolicJobName:
+    strategy:
+      fail-fast: boolean # optional, default is true
+      max-parallel: 5 # max number of matrix Jobs to run in parallel. optional, default is to run all Jobs in parallel (if enough runners are available)
+      matrix: # the variables that will define the different permutations
+        KEY1: [valueA, valueB]
+        KEY2: [valueX, valueY, valueZ]
+        include: # an extra list of objects to include
+        exclude: # an extra list of objects to exclude
+```
+- a different Job will run for each combination of KEYs, in this example that would be 6 different Jobs
+- there is a max of 256 Jobs
+- this will create a `matrix` context where you can use `matrix.KEY1` and `matrix.KEY2` which reference the current iteration
+- `exclude` is processed first, then `include` after, this allows you to add back combinations that were previously excluded
+- when `fail-fast` is set to `true`, if any job in the matrix fails, then all in-progress and queued jobs in the matrix will be cancelled
+
+## Jobs that call a Template (reusable workflow):
+https://docs.github.com/en/actions/using-workflows/reusing-workflows
 - Only the following parameters are supported in such a Job
-```
+
+```yaml
 jobs:
   symbolicJobName: # must be unique, start with a letter or underscore, and only contain letters, numbers, dashes, and underscores
     name: 'string' # friendly name that is shown in the GitHub UI
