@@ -59,6 +59,7 @@ on:
 # Permissions for the GITHUB_TOKEN
 https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
 - use this if you want to modify the default permissions granted to the GITHUB_TOKEN
+- optional, the default can be set (by an admin) to either a 'permissive' preset or a 'restricted' preset (more info at the link above)
 - Supported scopes for `permissions`: workflow-level, job-level
 
 ```yaml
