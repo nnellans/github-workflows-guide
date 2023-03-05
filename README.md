@@ -10,7 +10,8 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 - `run-name` can use expressions, and can reference the contexts of `github` and `inputs`
 
 # Triggers
-https://docs.github.com/en/actions/using-workflows/triggering-a-workflow <br />
+https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+
 ```yaml
 # option 1: single event with no options
 on: push
@@ -173,10 +174,7 @@ jobs:
     container: # see more below
     services: # see more below
     strategy: # see more below
-    
-    # specify outputs of this Job
-    # https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
-    outputs:
+    outputs: # see more below
     
     # list the Steps of this Job
     steps:
@@ -210,7 +208,7 @@ jobs:
 ```
 
 ### Job.Environment
-- https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
 - Specifies a GitHub environment to deploy to
 
 ```yaml
@@ -226,7 +224,7 @@ jobs:
 - `envName` can be a string or any expression (except for the `secrets` context)
 
 ### Job.Container
-- https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
+https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
 - Defines a container that will run all Steps in this Job
 
 ```yaml
@@ -253,7 +251,7 @@ jobs:
 - `run` Steps inside of a Container will default to the `sh` shell, but you can override with `jobid.defaults.run` or `step.shell`
 
 ### Job.Services
-- https://docs.github.com/en/actions/using-containerized-services/about-service-containers
+https://docs.github.com/en/actions/using-containerized-services/about-service-containers
 - Defines service container(s) that are used by your Job
 
 ```yaml
@@ -277,8 +275,8 @@ jobs:
 - not supported inside a composite action
 
 ### Job.Strategy
+https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
 - Use variables to make one Job run multiple different times
-- https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
 
 ```yaml
 jobs:
@@ -297,6 +295,22 @@ jobs:
 - this will create a `matrix` context where you can use `matrix.KEY1` and `matrix.KEY2` which reference the current iteration
 - `exclude` is processed first, then `include` after, this allows you to add back combinations that were previously excluded
 - when `fail-fast` is set to `true`, if any job in the matrix fails, then all in-progress and queued jobs in the matrix will be cancelled
+
+### Job.Outputs
+https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+- Specify outputs of this Job
+
+```yaml
+jobs:
+  symbolicJobName:
+    outputs: # map of outputs for this job
+      key: value
+      key: value
+```
+- these `outputs` are available to all downstream Jobs that **depend** on this Job
+- max of 1 MB per Output, and 50 MB total per Workflow
+- any expressions in an Output are evaluated at the end of a Job
+- any secrets in an Output are redacted and not sent to GitHub Actions
 
 ## Jobs that call a Template (reusable workflow):
 https://docs.github.com/en/actions/using-workflows/reusing-workflows
