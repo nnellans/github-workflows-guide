@@ -213,7 +213,7 @@ jobs:
       shell: bash | pwsh | python | sh | cmd | powershell
       working-directory: ./temp
 
-    # Step that runs a multi-line Script
+    # How to specify a multi-line Script
     - name: something3
       run: |
         multi-line
@@ -223,11 +223,11 @@ jobs:
   # https://docs.github.com/en/actions/using-workflows/reusing-workflows  
   # only the following parameters are supported in such a Job
   symbolicJobName:
-    name:
-    needs:
-    if:
-    permissions:
-    concurrency:
+    name: 'string' # friendly name that is shown in the GitHub UI
+    needs: # Job dependencies
+    if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
+    permissions: # job-level GITHUB_TOKEN permissions
+    concurrency: # job-level concurrency
     uses: org/repo/.github/workflows/file.yaml@ref # reference a Job template
     with: # parameters to pass to the template, must match what is defined in the template
       param1: value1
