@@ -1,0 +1,45 @@
+# this is an example metadata file for a GitHub Composite Action
+# the file must be named 'action.yaml' or 'action.yml'
+
+name: 'Hello World' # name of your Composite Action. required
+author: 'Nathan Nellans' # author of your Composite Action. optional
+description: 'Greet someone' # description of your Composite Action. required
+
+inputs: # specifies input parameters that your Composite Action expects to receive when being called
+  who-to-greet: # id of this input parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores. recommend using lowercase input ids
+    description: 'Who to greet' # description of this input parameter. required
+    required: true # specifies if your Composite Action requires a value for this input parameter. optional
+    default: 'World' # default value to use if a value is not supplied when called. optional
+
+runs:
+  using: 'composite' # must be set to composite
+  steps: # the steps that you plan to run in this Composite Action
+
+    - id: # optional id of the step, so you can reference this step later
+      name: # optional name of the step
+      if: # Step conditions, ${{ ... }} can optionally be used to enclose your condition. optional
+      env: # optional step-level variables
+        KEY: value
+      working-directory: # only for 'run' steps, sets the current working directory. optional
+      run: echo Hello ${{ inputs.who-to-greet }}. # single-line command to run
+      shell: bash # required for a 'run' step. options are: bash, pwsh, python, sh, cmd, powershell
+
+    - id: random-number-generator
+      run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+
+    - run: goodbye.sh
+      shell: bash
+
+    - uses: actions/hello_world@main # run a GitHub Action step
+      with: # parameters to pass to the action, must match what is defined in the action
+        key: value
+        key: value
+
+outputs:
+  random-number: # id of this output parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores
+    description: 'Random number' # description of this output parameter. required
+    value: ${{ steps.random-number-generator.outputs.random-number }} # value of this output parameter. required. can be set to a string or an expression
