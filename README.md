@@ -208,7 +208,7 @@ jobs:
         env: # Step-level variables
           KEY: value
         uses: actions/checkout@v3
-        with:
+        with: # parameters to pass to the action, must match what is defined in the action
           param1: value1
           param2: value2
           args: 'something' # this overwrites the CMD instruction in your Dockerfile
