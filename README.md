@@ -13,6 +13,8 @@ It's important to know that this is a live document.  Some of the sections are s
 - [Concurrency Settings](#concurrency-settings)
 - [Variables](#variables)
 - [Jobs and Steps](#jobs--defining-the-work)
+  - [Normal Jobs](#normal-jobs)
+  - [Calling a Reusable Workflow](#jobs-that-call-a-template-reusable-workflow)
 
 ---
 
@@ -232,8 +234,10 @@ jobs:
 ```yaml
 jobs:
   symbolicJobName:
+
     # option 1 - specify just an environment name
     environment: envName
+
     # option 2 - specify environment name and url
     environment:
       name: envName
@@ -248,8 +252,10 @@ jobs:
 ```yaml
 jobs:
   symbolicJobName:
+
     # option 1 - shortcut syntax specifying just the image
     container: node:14.16
+
     # option 2 - full syntax
     container:
       image: node:14.16
