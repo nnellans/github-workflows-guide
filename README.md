@@ -10,7 +10,7 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 - `run-name` can use expressions, and can reference the contexts of `github` and `inputs`
 
 # Triggers
-https://docs.github.com/en/actions/using-workflows/triggering-a-workflow
+[Documentation - Triggering a Workflow](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow)
 
 ```yaml
 # option 1: single event with no options
@@ -58,7 +58,7 @@ on:
 - If multiple events happen at the same time, then multiple runs of the workflow will trigger
 
 # Permissions for the GITHUB_TOKEN
-https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
+[Documentation - Permissions for the GitHub Token](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)
 - Use this if you want to modify the default permissions granted to the GITHUB_TOKEN
 - Optional, the default can be set (by an admin) to either a `permissive` preset or a `restricted` preset (more info at the link above)
 - As a good security practice, you should grant the GITHUB_TOKEN the least required access
@@ -90,7 +90,7 @@ permissions: {}
 ```
 
 # Default Settings
-https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
+[Documentation - Setting Default Values for Jobs](https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs)
 - Creates a map of default settings that will be inherited
 - Supported scopes for `defaults`: workflow-level, job-level
   - The most specific defaults wins
@@ -103,7 +103,7 @@ defaults:
 ```
 
 # Concurrency Settings
-https://docs.github.com/en/actions/using-jobs/using-concurrency
+[Documentation - Using Concurrency](https://docs.github.com/en/actions/using-jobs/using-concurrency)
 - Ensures that only one Workflow (or only one Job) from the specified concurrency group can run at a time
 - Optional
 - Supported scopes for `concurrency`: workflow-level, job-level
@@ -121,7 +121,7 @@ concurrency:
 - Default behavior: If a Workflow/Job in the concurrency group is currently running, then any new Workflows/Jobs will be placed in pending state and will wait for the original Workflow/Job to finish. Only the latest Workflow/Job is kept in the pending state, all others will be cancelled.
 
 # Variables
-https://docs.github.com/en/actions/learn-github-actions/variables
+[Documentation - Variables](https://docs.github.com/en/actions/learn-github-actions/variables)
 - cannot reference other variables in the same map
 - Supported scopes for `env`: workflow-level, job-level, step-level
   - The most specific variable wins
@@ -153,7 +153,7 @@ ${{ secrets.SECRETKEY }}
 # Jobs / Defining the work
 
 ## Normal Jobs:
-https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
+[Documentation - Using Jobs in a Workflow](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow)
 
 ```yaml
 jobs:
@@ -208,7 +208,7 @@ jobs:
 ```
 
 ### Job.Environment
-https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+[Documentation - Using Environments for Deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
 - Specifies a GitHub environment to deploy to
 
 ```yaml
@@ -224,7 +224,7 @@ jobs:
 - `envName` can be a string or any expression (except for the `secrets` context)
 
 ### Job.Container
-https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container
+[Documentation - Running Jobs in a Container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container)
 - Defines a container that will run all Steps in this Job
 
 ```yaml
@@ -251,7 +251,7 @@ jobs:
 - `run` Steps inside of a Container will default to the `sh` shell, but you can override with `jobid.defaults.run` or `step.shell`
 
 ### Job.Services
-https://docs.github.com/en/actions/using-containerized-services/about-service-containers
+[Documentation - About Service Containers](https://docs.github.com/en/actions/using-containerized-services/about-service-containers)
 - Defines service container(s) that are used by your Job
 
 ```yaml
@@ -275,7 +275,7 @@ jobs:
 - not supported inside a composite action
 
 ### Job.Strategy
-https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+[Documentation - Using a Matrix for your Jobs](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs)
 - Use variables to make one Job run multiple different times
 
 ```yaml
@@ -297,7 +297,7 @@ jobs:
 - when `fail-fast` is set to `true`, if any job in the matrix fails, then all in-progress and queued jobs in the matrix will be cancelled
 
 ### Job.Outputs
-https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+[Documentation - Defining Outputs for Jobs](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs)
 - Specify outputs of this Job
 
 ```yaml
@@ -313,7 +313,7 @@ jobs:
 - any secrets in an Output are redacted and not sent to GitHub Actions
 
 ## Jobs that call a Template (reusable workflow):
-https://docs.github.com/en/actions/using-workflows/reusing-workflows
+[Documentation - Reusing Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
 - Only the following parameters are supported in such a Job
 
 ```yaml
