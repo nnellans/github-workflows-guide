@@ -41,7 +41,7 @@ on:
         description:
         required: true | false
         type: boolean | number | string # required
-        default: something # if omitted, a boolean will be false, a number will be 0, and a string will be ""
+        default: something # if omitted, boolean = false, number = 0, string = ""
       inputName2:
     secrets: # input secrets
       secretName1:
