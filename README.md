@@ -1,4 +1,4 @@
-# WORKFLOW INFO
+# Workflow-related
 
 Name of the workflow as shown in the GitHub UI
 ```yaml
@@ -11,15 +11,13 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 ```
 - The value can include expressions, and can reference the contexts of 'github' and 'inputs'
 
-# TRIGGERS
+# Triggers
 https://docs.github.com/en/actions/using-workflows/triggering-a-workflow <br />
-option 1: single event with no options
 ```yaml
+# option 1: single event with no options
 on: push
-```
 
-option 2: multiple events with no options
-```yaml
+#option 2: multiple events with no options
 # first form
 on: [push, fork]
 
@@ -27,12 +25,8 @@ on: [push, fork]
 on:
   - push
   - fork
-```
-- only one event needs to occur to trigger the workflow
-- if multiple events happen at the same time, then multiple runs of the workflow will trigger
 
-option 3: events with options
-```yaml
+#option 3: events with options
 on:
   push:
     branches:
@@ -40,10 +34,8 @@ on:
   issues:
     types:
     - opened
-```
 
-option 4: if this workflow is used as a template (reusable workflow)
-```yaml
+#option 4: if this workflow is used as a template (reusable workflow)
 on:
   workflow_call:
     inputs: # input parameters
@@ -63,10 +55,13 @@ on:
         value:
 ```
 
-# GITHUB_TOKEN PERMISSIONS
+- only one event needs to occur to trigger the workflow
+- if multiple events happen at the same time, then multiple runs of the workflow will trigger
+
+# Permissions for the GITHUB_TOKEN
 https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
-- if you want to modify the default permissions granted to the GITHUB_TOKEN
-- workflow-level, but can also be defined at the Job-level
+- use this if you want to modify the default permissions granted to the GITHUB_TOKEN
+- Supported scopes: workflow-level, job-level
 
 ```yaml
 # option 1: full syntax
@@ -92,26 +87,26 @@ permissions: read-all | write-all
 permissions: {}
 ```
 
-# DEFAULTS
+# Default Settings
 https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs
 - create a map of default settings
-- workflow-level, but can also be defined at the Job-level. the most specific defaults wins
+- Supported scopes: workflow-level, job-level (the most specific defaults wins)
 
 ```yaml
 defaults:
 ```
 
-# CONCURRENCY
+# Concurrency Settings
 https://docs.github.com/en/actions/using-jobs/using-concurrency
 
 ```yaml
 concurrency:
 ```
 
-# VARIABLES
+# Variables
 https://docs.github.com/en/actions/learn-github-actions/variables
-- workflow-level, but can also be defined at the Job-level and Step-level. the most specific variable wins
 - cannot reference other variables in the same map
+- Supported scopes: workflow-level, job-level, step-level (the most specific variable wins)
 
 ```yaml
 # defining variables
@@ -136,7 +131,7 @@ ${{ vars.CONFIGKEY }}
 ${{ secrets.SECRETKEY }}
 ```
 
-# JOBS
+# Jobs / Defining the work
 https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow
 
 ```yaml
@@ -243,6 +238,6 @@ jobs:
     secrets: inherit # pass all of the secrets from the parent workflow to the template. this includes org, repo, and environment secrets from the parent workflow
 ```
 
-# LINKS
+# Links
 - official github actions: https://github.com/orgs/actions/repositories
 - official azure actions: https://github.com/marketplace?query=Azure&type=actions&verification=verified_creator
