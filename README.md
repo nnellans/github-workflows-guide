@@ -15,6 +15,7 @@ It's important to know that this is a live document.  Some of the sections are s
 - [Jobs and Steps](#jobs--defining-the-work)
   - [Normal Jobs](#normal-jobs)
   - [Calling a Reusable Workflow](#jobs-that-call-a-template-reusable-workflow)
+- [Composite Actions vs. Reusable Workflows](#composite-actions-vs-reusable-workflows)
 
 ---
 
@@ -357,6 +358,21 @@ jobs:
       param2: ${{ secretos.someOtherSecret }}
     secrets: inherit # pass all of the secrets from the parent workflow to the template. this includes org, repo, and environment secrets from the parent workflow
 ```
+
+# Composite Actions vs. Reusable Workflows
+
+| | Composite Actions | Reusable Workflows |
+| --- | --- | --- |
+| Supports Jobs | No<br />(steps only) | Yes |
+| Supports Secrets | No | Yes<br />(must be passed in) |
+| Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(so, many per folder) |
+| Nesting | 10 levels | 4 levels |
+| Can specify Agent<br />(`runs-on`) | No | Yes |
+| Logging | Summarized | Logging for each Job and Step |
+
+- Here is a link to an example [action.yaml](action.yaml) file for a Composite Action
+
+---
 
 # Links
 - official github actions: https://github.com/orgs/actions/repositories
