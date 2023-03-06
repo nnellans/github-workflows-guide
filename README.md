@@ -137,10 +137,10 @@ concurrency: groupName
 # option 2: specify a concurrency group with custom settings
 concurrency:
   group: groupName
-  cancel-in-progress: true # this will cancel any currently running workflows/jobs first, to ensure this will be the only one that runs
+  cancel-in-progress: true # this will cancel any currently running workflows/jobs first
 ```
 - `groupName` can be any string or expression (but limited to the `github` context only)
-- Default behavior: If a Workflow/Job in the concurrency group is currently running, then any new Workflows/Jobs will be placed in pending state and will wait for the original Workflow/Job to finish. Only the latest Workflow/Job is kept in the pending state, all others will be cancelled.
+- Default behavior: If a Workflow/Job in the concurrency group is currently running, then any new Workflows/Jobs will be placed into a pending state and will wait for the original Workflow/Job to finish. Only the most recent Workflow/Job is kept in the pending state, and all others will be cancelled.
 
 # Variables
 [Documentation - Variables](https://docs.github.com/en/actions/learn-github-actions/variables)
@@ -272,8 +272,9 @@ jobs:
         - source:destinationPath
       options: --cpus 1 # specifies additional options for the docker create command, --network is not supported
 ```
-- only for Steps that don't already use their own Container
-- only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
+- Optional, if omitted the Job will run directly on the Agent and not inside a Container
+- Only for Steps that don't already use their own Container
+- Only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
 - `run` Steps inside of a Container will default to the `sh` shell, but you can override with `jobid.defaults.run` or `step.shell`
 
 ### Job.Services
@@ -297,8 +298,9 @@ jobs:
           - source:destinationPath
         options: --cpus 1 # specifies additional options for the docker create command, --network is not supported
 ```
-- only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
-- not supported inside a composite action
+- Optional
+- Only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
+- Not supported inside a composite action
 
 ### Job.Strategy
 [Documentation - Using a Matrix for your Jobs](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs)
@@ -316,11 +318,12 @@ jobs:
         include: # an extra list of objects to include
         exclude: # an extra list of objects to exclude
 ```
-- a different Job will run for each combination of KEYs, in this example that would be 6 different Jobs
-- there is a max of 256 Jobs
-- this will create a `matrix` context where you can use `matrix.KEY1` and `matrix.KEY2` which reference the current iteration
-- `exclude` is processed first, then `include` after, this allows you to add back combinations that were previously excluded
-- when `fail-fast` is set to `true`, if any job in the matrix fails, then all in-progress and queued jobs in the matrix will be cancelled
+- Optional
+- A different Job will run for each combination of KEYs, in this example that would be 6 different Jobs
+- There is a max of 256 Jobs
+- This will create a `matrix` context which lets you use `matrix.KEY1` and `matrix.KEY2` to reference the current iteration
+- `exclude` is processed first before `include`, this allows you to add back combinations that were previously excluded
+- When `fail-fast` is set to `true`, if any job in the matrix fails, then all in-progress and queued jobs in the matrix will be cancelled
 
 ### Job.Outputs
 [Documentation - Defining Outputs for Jobs](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs)
@@ -333,10 +336,10 @@ jobs:
       key: value
       key: value
 ```
-- these `outputs` are available to all downstream Jobs that **depend** on this Job
-- max of 1 MB per Output, and 50 MB total per Workflow
-- any expressions in an Output are evaluated at the end of a Job
-- any secrets in an Output are redacted and not sent to GitHub Actions
+- These `outputs` are available to all downstream Jobs that **depend** on this Job
+- Max of 1 MB per Output, and 50 MB total per Workflow
+- Any expressions in an Output are evaluated at the end of a Job
+- Any secrets in an Output are redacted and not sent to GitHub Actions
 
 ## Jobs that call a reusable workflow (template):
 [Documentation - Reusing Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
