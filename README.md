@@ -361,6 +361,7 @@ jobs:
 ```
 
 # Composite Actions vs. Reusable Workflows
+This list of features changes quite often. For example, Reusable Workflows being able to call other Reusable Workflows is fairly new.
 
 | | Composite Actions | Reusable Workflows |
 | --- | --- | --- |
