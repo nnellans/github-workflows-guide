@@ -366,10 +366,10 @@ This list of features changes quite often. For example, Reusable Workflows being
 | | Composite Actions | Reusable Workflows |
 | --- | --- | --- |
 | Supports Jobs | No<br />(steps only) | Yes |
+| Can specify Agent<br />(`runs-on`) | No | Yes |
 | Supports Secrets | No | Yes<br />(must be passed in) |
 | Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(so, many per folder) |
 | Nesting | 10 levels | 4 levels |
-| Can specify Agent<br />(`runs-on`) | No | Yes |
 | Logging | Summarized | Logging for each Job and Step |
 
 - Here is a link to an example [action.yaml](action.yaml) file for a Composite Action
