@@ -16,6 +16,7 @@ It's important to know that this is a live document.  Some of the sections are s
   - [Normal Jobs](#normal-jobs)
   - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-template)
 - [Composite Actions vs. Reusable Workflows](#composite-actions-vs-reusable-workflows)
+- [Links](#links)
 
 ---
 
