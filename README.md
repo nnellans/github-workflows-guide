@@ -14,7 +14,7 @@ It's important to know that this is a live document.  Some of the sections are s
 - [Variables](#variables)
 - [Jobs and Steps](#jobs--defining-the-work)
   - [Normal Jobs](#normal-jobs)
-  - [Calling a Reusable Workflow](#jobs-that-call-a-template-reusable-workflow)
+  - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-template)
 - [Composite Actions vs. Reusable Workflows](#composite-actions-vs-reusable-workflows)
 
 ---
@@ -55,7 +55,7 @@ on:
     types:
     - opened
 
-#option 4: if this workflow is used as a template (reusable workflow)
+#option 4: if this workflow is used as a reusable workflow (template)
 on:
   workflow_call:
     inputs: # input parameters
@@ -337,7 +337,7 @@ jobs:
 - any expressions in an Output are evaluated at the end of a Job
 - any secrets in an Output are redacted and not sent to GitHub Actions
 
-## Jobs that call a Template (reusable workflow):
+## Jobs that call a reusable workflow (template):
 [Documentation - Reusing Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
 - Only the following parameters are supported in such a Job
 
