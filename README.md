@@ -204,14 +204,14 @@ jobs:
     steps:
 
       # Use a GitHub Action
-      - id: 'symbolicStepName'
-        name: 'string' # friendly name that is shown in the GitHub UI
+      - id: 'symbolicStepName' # optional
+        name: 'string' # optional. friendly name that is shown in the GitHub UI
         if: # Step conditions, ${{ ... }} can optionally be used to enclose your condition
         continue-on-error: true # allows the Job to pass if this Step fails
         timeout-minutes: 10 # max time to run the Step before killing the process
         env: # Step-level variables
           KEY: value
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3 # the action to run
         with: # parameters to pass to the action, must match what is defined in the action
           param1: value1
           param2: value2
