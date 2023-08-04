@@ -1,8 +1,10 @@
 # GitHub Workflow Guide
 
-**Warning**: This is an advanced guide and assumes you already know the basics of GitHub Workflows.  Think of this more like an advanced cheat sheet.  I went through the documentation and captured any notes that I felt were important, and organized them into the README file you see here.  If you are new to GitHub Workflows, then I would suggest first going through the GitHub docs first.
+> [!WARNING]
+> This is an advanced guide and assumes you already know the basics of GitHub Workflows.  Think of this more like an advanced cheat sheet.  I went through the documentation and captured any notes that I felt were important, and organized them into the README file you see here.  If you are new to GitHub Workflows, then I would suggest first going through the GitHub docs first.
 
-It's important to know that this is a live document.  Some of the sections are still a work in progress.  I will be continually updating it over time.
+> [!IMPORTANT]
+> This is a live document.  Some of the sections are still a work in progress.  I will be continually updating it over time.
 
 ---
 # Table of Contents
