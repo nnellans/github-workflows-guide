@@ -58,7 +58,24 @@ on:
     types:
     - opened
 
-#option 4: if this workflow is used as a reusable workflow (job-level template)
+#option 4: manual trigger where you can specify inputs
+on:
+  workflow_dispatch:
+    inputs:
+      someInputName:
+        description:
+        required: true | false
+        default: 'defaultValue'
+        type: boolean | number | string | choice
+        options: # when you choose type: choice
+          - option1
+          - option2
+      someOtherInput:
+        description:
+        required: true
+        type: string
+
+#option 5: if this workflow is used as a reusable workflow (job-level template)
 on:
   workflow_call:
     inputs: # input parameters
