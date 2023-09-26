@@ -58,7 +58,7 @@ on:
     types:
     - opened
 
-#option 4: if this workflow is used as a reusable workflow (template)
+#option 4: if this workflow is used as a reusable workflow (job-level template)
 on:
   workflow_call:
     inputs: # input parameters
