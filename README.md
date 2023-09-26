@@ -58,7 +58,7 @@ on:
     types:
     - opened
 
-#option 4: manual trigger where you can specify inputs
+#option 4: manual trigger where you can specify a max of 10 inputs
 on:
   workflow_dispatch:
     inputs:
