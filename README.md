@@ -19,6 +19,7 @@
   - [Normal Jobs](#normal-jobs)
   - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-job-level-template)
 - [Composite Actions vs. Reusable Workflows](#composite-actions-vs-reusable-workflows)
+- [Workflow Commands](#workflow-commands)
 - [Links](#links)
 
 ---
@@ -225,6 +226,8 @@ linux:  $KEY
 windows powershell:  $env:KEY
 windows cmd:  %KEY%
 ```
+
+---
 
 # Secrets
 [Documentation - Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
@@ -459,6 +462,31 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Logging | Summarized | Logging for each Job and Step |
 
 - Here is a link to an example [action.yaml](action.yaml) file for a Composite Action
+
+---
+
+# Workflow Commands
+- These are special commands that can be used to communicate with the runner machine
+- They can do multiple different things, such as set environment variables, set output values, set debug messages, and more
+- Depending on the specific Workflow Command, it can be used in one of two ways:
+  - Using the `echo` command with a specific format
+  - Writing to a file
+
+```bash
+# Some examples (all using Bash), see the docs for a full reference
+
+# Print a debug message to the log
+echo "::debug::This is a debug message"
+
+# Masking a string value so it's not shown in the logs
+echo "::add-mask::This value will be masked"
+
+# Setting an environment variable
+echo "KEY=value" >> "$GITHUB_ENV"
+
+# Setting an output parameter
+echo "KEY=value" >> "$GITHUB_OUTPUT"
+```
 
 ---
 
