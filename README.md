@@ -177,7 +177,7 @@ env:
 
 # defining environment variables (job-level)
 jobs:
-  someJobID:
+  someJobId:
     env:
       KEY1: value
       KEY2: value
@@ -211,7 +211,7 @@ $GITHUB_REF and ${{ github.ref }}
   - The most specific variable wins
 - Configuration variable naming restrictions:
   - Can only contain alphanumeric characters or underscores
-  - Must not start with the GITHUB_ prefix or a number
+  - Must not start with the `GITHUB_` prefix or a number
   - Case insensitive
   - Must be unique at the level they are created at
 - Configuration variable limits: 1,000 per Organization, 500 per Repo, 100 per Repo Environment
@@ -233,7 +233,7 @@ windows powershell:  $env:KEY
   - The most specific variable wins
 - Secrets naming restrictions:
   - Can only contain alphanumeric characters or underscores
-  - Must not start with the GITHUB_ prefix or a number
+  - Must not start with the `GITHUB_` prefix or a number
   - Case insensitive
   - Must be unique at the level they are created at
 - Secrets limits: 1,000 per Organization, 100 per Repo, 100 per Repo Environment
