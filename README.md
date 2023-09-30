@@ -170,10 +170,26 @@ concurrency:
   - The most specific variable wins
 
 ```yaml
-# defining environment variables
+# defining environment variables (workflow-level)
 env:
-  KEY: value
-  KEY: value
+  KEY1: value
+  KEY2: value
+
+# defining environment variables (job-level)
+jobs:
+  someJobID:
+    env:
+      KEY1: value
+      KEY2: value
+
+# defining environment variables (step-level)
+jobs:
+  someJobId:
+    steps:
+      - name: someStepName
+        env:
+          KEY1: value
+          KEY2: value
 
 # use an environment variable in the workflow yaml:
 ${{ env.KEY }}
@@ -181,6 +197,7 @@ ${{ env.KEY }}
 # use an environment variable inside of a script by just accessing the shell variable as usual:
 linux:  $KEY
 windows powershell:  $env:KEY
+windows cmd:  %KEY%
 
 # there are many default environment variables (see link above)
 # most also have a matching value in the github context so you can use them in the workflow yaml
