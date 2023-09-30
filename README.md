@@ -451,7 +451,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 | | Composite Actions | Reusable Workflows |
 | --- | --- | --- |
 | Scope | Step-level | Job-level |
-| Supports Secrets | No | Yes<br />(must be passed in) |
+| Supports Secrets | No | Yes (must be passed in) |
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
 | Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(so, many per folder) |
