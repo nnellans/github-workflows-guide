@@ -223,6 +223,7 @@ ${{ vars.KEY }}
 # use a configuration variable inside of a script by just accessing the shell variable as usual:
 linux:  $KEY
 windows powershell:  $env:KEY
+windows cmd:  %KEY%
 ```
 
 # Secrets
@@ -246,7 +247,7 @@ windows powershell:  $env:KEY
 steps:
   - name: Hello world action
     # Set the secret as an input
-    with
+    with:
       super_secret: ${{ secrets.Key }}
     # Or as an environment variable
     env:
