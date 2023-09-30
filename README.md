@@ -163,7 +163,8 @@ concurrency:
 
 # Variables
 [Documentation - Variables](https://docs.github.com/en/actions/learn-github-actions/variables)
-- cannot reference other variables in the same map
+### Environment Variables
+- Cannot reference other variables in the same map
 - Supported scopes for `env`: workflow-level, job-level, step-level
   - The most specific variable wins
 
@@ -173,22 +174,46 @@ env:
   KEY: value
   KEY: value
 
-# use a variable inside of a script on the runner by just accessing an environment variable as usual:
+# use an environment variable in the workflow yaml:
+${{ env.KEY }}
+
+# use an environment variable inside of a script by just accessing the shell variable as usual:
 linux:  $KEY
 windows powershell:  $env:KEY
-
-# use a variable in the workflow yaml:
-${{ env.KEY }}
 
 # there are many default environment variables (see link above)
 # most also have a matching value in the github context so you can use them in the workflow yaml
 $GITHUB_REF and ${{ github.ref }}
 
-# use configuration variables that are defined via the GitHub UI:
-${{ vars.CONFIGKEY }}
-
 # use secrets that are defined via the GitHub UI:
 ${{ secrets.SECRETKEY }}
+```
+
+### Configuration Variables
+- Defined in the GitHub UI
+- Can be shared by multiple Workflows
+- Supported scopes for `vars`: organization-level, repo-level, repo environment-level
+  - The most specific variable wins
+- Configuration variable naming restrictions:
+  - Can only contain alphanumeric characters or underscores
+  - Must not start with the GITHUB_ prefix
+  - Must not start with a number
+  - Are case insensitive
+  - Must be unique at the level they are created at
+- Configuration variable limits:
+  - Max of 1,000 configuration variables per Organization
+  - Max of 500 configuration variables per Repo
+  - Max of 100 configuration variables per Repo Environment
+  - 
+
+
+```yaml
+# use a configuration variable in the workflow yaml:
+${{ vars.KEY }}
+
+# use a configuration variable inside of a script by just accessing the shell variable as usual:
+linux:  $KEY
+windows powershell:  $env:KEY
 ```
 
 # Jobs / Defining the work
