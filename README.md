@@ -17,7 +17,7 @@
 - [Secrets](#secrets)
 - [Jobs and Steps](#jobs--defining-the-work)
   - [Normal Jobs](#normal-jobs)
-  - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-template)
+  - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-job-level-template)
 - [Composite Actions vs. Reusable Workflows](#composite-actions-vs-reusable-workflows)
 - [Links](#links)
 
@@ -423,7 +423,7 @@ jobs:
 - Any expressions in an Output are evaluated at the end of a Job
 - Any secrets in an Output are redacted and not sent to GitHub Actions
 
-## Jobs that call a reusable workflow (template):
+## Jobs that call a reusable workflow (job-level template):
 [Documentation - Reusing Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
 - Only the following parameters are supported in such a Job
 
