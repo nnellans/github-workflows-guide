@@ -14,6 +14,7 @@
 - [Default Settings](#default-settings)
 - [Concurrency Settings](#concurrency-settings)
 - [Variables](#variables)
+- [Secrets](#secrets)
 - [Jobs and Steps](#jobs--defining-the-work)
   - [Normal Jobs](#normal-jobs)
   - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-template)
@@ -169,7 +170,7 @@ concurrency:
   - The most specific variable wins
 
 ```yaml
-# defining variables
+# defining environment variables
 env:
   KEY: value
   KEY: value
@@ -184,9 +185,6 @@ windows powershell:  $env:KEY
 # there are many default environment variables (see link above)
 # most also have a matching value in the github context so you can use them in the workflow yaml
 $GITHUB_REF and ${{ github.ref }}
-
-# use secrets that are defined via the GitHub UI:
-${{ secrets.SECRETKEY }}
 ```
 
 ### Configuration Variables
@@ -196,16 +194,10 @@ ${{ secrets.SECRETKEY }}
   - The most specific variable wins
 - Configuration variable naming restrictions:
   - Can only contain alphanumeric characters or underscores
-  - Must not start with the GITHUB_ prefix
-  - Must not start with a number
-  - Are case insensitive
+  - Must not start with the GITHUB_ prefix or a number
+  - Case insensitive
   - Must be unique at the level they are created at
-- Configuration variable limits:
-  - Max of 1,000 configuration variables per Organization
-  - Max of 500 configuration variables per Repo
-  - Max of 100 configuration variables per Repo Environment
-  - 
-
+- Configuration variable limits: 1,000 per Organization, 500 per Repo, 100 per Repo Environment
 
 ```yaml
 # use a configuration variable in the workflow yaml:
@@ -214,6 +206,34 @@ ${{ vars.KEY }}
 # use a configuration variable inside of a script by just accessing the shell variable as usual:
 linux:  $KEY
 windows powershell:  $env:KEY
+```
+
+# Secrets
+[Documentation - Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
+- Defined in the GitHub UI
+- Can be shared by multiple Workflows
+- Supported scopes for `secrets`: organization-level, repo-level, repo environment-level
+  - The most specific variable wins
+- Secrets naming restrictions:
+  - Can only contain alphanumeric characters or underscores
+  - Must not start with the GITHUB_ prefix or a number
+  - Case insensitive
+  - Must be unique at the level they are created at
+- Secrets limits: 1,000 per Organization, 100 per Repo, 100 per Repo Environment
+- Avoid using structured data (like JSON) as the value of your Secret. This helps to ensure that GitHub can properly redact your Secret in logs.
+- Secrets cannot be directly referenced in `if:` conditionals
+  - Instead, consider setting secrets as Job-level environment variables, then referencing the environment variables to conditionally run Steps in the Job
+
+```yaml
+# to use secrets that are defined via the GitHub UI, you must set the secret as an input or environment variable
+steps:
+  - name: Hello world action
+    # Set the secret as an input
+    with
+      super_secret: ${{ secrets.Key }}
+    # Or as an environment variable
+    env:
+      super_secret: ${{ secrets.Key }
 ```
 
 # Jobs / Defining the work
