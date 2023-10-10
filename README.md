@@ -490,10 +490,13 @@ echo "KEY=value" >> "$GITHUB_ENV"
 echo "KEY=value" >> "$GITHUB_OUTPUT"
 ```
 
-> [!NOTE]
+> [!WARNING]
+> For reusable workflows, any variables you set in the `env` context inside of the reusable workflow will NOT be available in the parent workflow. To get around this, the reusable workflow could create an `output` and that can be consumed by the parent workflow.
+
+> [!WARNING]
 > A masked value can NOT be passed from one Job to another Job in GitHub Actions
 > - [GitHub Discusson](https://github.com/orgs/community/discussions/13082) on this topic
-> - The [official docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-masking-and-passing-a-secret-between-jobs-or-workflows) want you to use a secret store, such as Azure KeyVault, to solve this problem. In effect, Job 1 uploads the value to the secret store, and then Job 2 download the value from the secret store.
+> - The [official docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-masking-and-passing-a-secret-between-jobs-or-workflows) want you to use a secret store, such as Azure KeyVault, to solve this problem. In effect, Job 1 uploads the value to the secret store, and then Job 2 downloads the value from the secret store.
 
 ---
 
