@@ -461,7 +461,8 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Nesting | 10 levels | 4 levels |
 | Logging | Summarized | Logging for each Job and Step |
 
-- Here is a link to an example [action.yaml](action.yaml) file for a Composite Action
+> [!NOTE]
+> Here is a link to an example [action.yaml](action.yaml) file showing the complete syntax for a Composite Action
 
 ---
 
