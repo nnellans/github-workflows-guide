@@ -467,6 +467,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 ---
 
 # Workflow Commands
+[Documentation - Workflow Commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions)
 - These are special commands that can be used to communicate with the runner machine
 - They can do multiple different things, such as set environment variables, set output values, set debug messages, and more
 - Depending on the specific Workflow Command, it can be used in one of two ways:
@@ -488,6 +489,11 @@ echo "KEY=value" >> "$GITHUB_ENV"
 # Setting an output parameter
 echo "KEY=value" >> "$GITHUB_OUTPUT"
 ```
+
+> [!NOTE]
+> A masked value can NOT be passed from one Job to another Job in GitHub Actions
+> [GitHub Discusson](https://github.com/orgs/community/discussions/13082) on this topic
+> The [official docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-masking-and-passing-a-secret-between-jobs-or-workflows) want you to use a secret store, such as Azure KeyVault to solve this problem. In effect, Job 1 uploads the value to the secret store, and then Job 2 download the value from the secret store.
 
 ---
 
