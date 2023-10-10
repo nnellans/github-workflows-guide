@@ -248,12 +248,10 @@ windows cmd:  %KEY%
 # to use secrets that are defined via the GitHub UI, you must set the secret as an input or environment variable
 steps:
   - name: Hello world action
-    # Set the secret as an input
-    with:
-      super_secret: ${{ secrets.Key }}
-    # Or as an environment variable
-    env:
-      super_secret: ${{ secrets.Key }
+    with:  # Set the secret as an input
+      someInput: ${{ secrets.Key }}
+    env:   # Or as an environment variable
+      someVar: ${{ secrets.Key }
 ```
 
 # Jobs / Defining the work
