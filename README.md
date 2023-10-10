@@ -453,7 +453,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 | | Composite Actions | Reusable Workflows |
 | --- | --- | --- |
 | Scope | Step-level | Job-level |
-| Supports `env` variables<br />from parent Workflow | Yes | No |
+| Supports `env` variables<br />defined in parent Workflow | Yes | No |
 | Supports Secrets | No | Yes (must be passed in) |
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
