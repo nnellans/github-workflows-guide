@@ -86,7 +86,6 @@ on:
         required: true | false
         type: boolean | number | string # required
         default: something # if omitted, boolean = false, number = 0, string = ""
-      inputName2:
     secrets: # input secrets
       secretName1:
         description:
@@ -444,7 +443,7 @@ jobs:
       param2: value2
     secrets: # secrets to pass to the template, must match what is defined in the template
       param1: ${{ secrets.someSecret }}
-      param2: ${{ secretos.someOtherSecret }}
+      param2: ${{ secrets.someOtherSecret }}
     secrets: inherit # pass all of the secrets from the parent workflow to the template. this includes org, repo, and environment secrets from the parent workflow
 ```
 
@@ -454,6 +453,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 | | Composite Actions | Reusable Workflows |
 | --- | --- | --- |
 | Scope | Step-level | Job-level |
+| Supports `env` variables<br />from parent Workflow | Yes | No |
 | Supports Secrets | No | Yes (must be passed in) |
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
