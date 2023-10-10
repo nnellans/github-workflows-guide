@@ -491,7 +491,7 @@ echo "KEY=value" >> "$GITHUB_OUTPUT"
 ```
 
 > [!WARNING]
-> For reusable workflows, any variables you set in the `env` context inside of the reusable workflow will NOT be available in the parent workflow. To get around this, the reusable workflow could create an `output` and that can be consumed by the parent workflow.
+> For reusable workflows, any variables you set in the `env` context inside of the reusable workflow will NOT be available in the parent workflow. To get around this, the reusable workflow could create an `output` which can then be consumed by the parent workflow.
 
 > [!WARNING]
 > A masked value can NOT be passed from one Job to another Job in GitHub Actions
