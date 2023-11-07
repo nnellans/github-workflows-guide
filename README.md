@@ -460,7 +460,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Logging | Summarized | Logging for each Job and Step |
 
 > [!NOTE]
-> Here is a link to an example [action.yaml](action.yaml) file showing the complete syntax for a Composite Action
+> Here is a link to an example [action.yaml](./action.yaml) file showing the complete syntax for a Composite Action
 
 ---
 
