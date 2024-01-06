@@ -460,9 +460,9 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Logging | Summarized | Logging for each Job and Step |
 
 > [!NOTE]
-> Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
-> Example [action-docker.yaml](./action-docker.yaml) file showing the complete syntax for a reusable Docker Action
-> Example [action-node.yaml](./action-node.yaml) file showing the complete syntax for a reusable Node.js Action
+> - Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
+> - Example [action-docker.yaml](./action-docker.yaml) file showing the complete syntax for a reusable Docker Action
+> - Example [action-node.yaml](./action-node.yaml) file showing the complete syntax for a reusable Node.js Action
 
 ---
 
