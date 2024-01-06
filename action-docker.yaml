@@ -24,14 +24,14 @@ runs:
   env: # environment variables to set inside the container. optional
     KEY: value
     KEY: value
-  pre-if: # condition to determine if the pre-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
   pre-entrypoint: 'script.sh' # run a script before the entrypoint. optional
+  pre-if: # condition to determine if the pre-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
   entrypoint: 'script.sh' # use when the Dockerfile does not specify an ENTRYPOINT, or if you want to override the Dockerfile's ENTRYPOINT. optional
   args: # these are passed as arguments to the entrypoint. use when you want to override the Dockerfile's CMD. optional
     - 'foo'
     - 'bar'
-  post-if: # condition to determine if the post-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
   post-entrypoint: 'script.sh' # run a script after the entrypoint. optional
+  post-if: # condition to determine if the post-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
 
 outputs:
   random-number: # id of this output parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores
