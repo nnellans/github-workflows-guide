@@ -1,5 +1,6 @@
 # this is an example metadata file for a GitHub Composite Action
 # the file must be named 'action.yaml' or 'action.yml'
+# source: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 
 name: 'Hello World' # name of your Composite Action. required
 author: 'Nathan Nellans' # author of your Composite Action. optional
