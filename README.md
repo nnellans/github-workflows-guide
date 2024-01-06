@@ -18,7 +18,7 @@
 - [Jobs and Steps](#jobs--defining-the-work)
   - [Normal Jobs](#normal-jobs)
   - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-job-level-template)
-- [Composite Actions vs. Reusable Workflows](#composite-actions-vs-reusable-workflows)
+- [Reusable Actions vs. Reusable Workflows](#reusable-actions-vs-reusable-workflows)
 - [Workflow Commands](#workflow-commands)
 - [Links](#links)
 
