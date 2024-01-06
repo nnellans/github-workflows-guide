@@ -3,25 +3,25 @@
 # source: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 # source: https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action
 
-name: 'Hello World' # name of your Composite Action. required
-author: 'Nathan Nellans' # author of your Composite Action. optional
-description: 'Greet someone' # description of your Composite Action. required
+name: 'Hello World' # name of your Docker Action. required
+author: 'Nathan Nellans' # author of your Docker Action. optional
+description: 'Greet someone' # description of your Docker Action. required
 branding: # branding is shown next to your action name in GitHub Marketplace. optional
   color: 'green' # options are: white, yellow, blue, green, orange, red, purple, gray-dark
   icon: 'globe' # pick an option from https://feathericons.com, however some options are omitted, read the docs
 
-inputs: # specifies input parameters that your Composite Action expects to receive when being called
+inputs: # specifies input parameters that your Docker Action expects to receive when being called
   who-to-greet: # id of this input parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores. recommend using lowercase input ids
     description: 'Who to greet' # description of this input parameter. required
-    required: true # specifies if your Composite Action requires a value for this input parameter. optional
+    required: true # specifies if your Docker Action requires a value for this input parameter. optional
     default: 'World' # default value to use if a value is not supplied when called. optional
     deprecationMessage: 'Some Warning Message' # use this to warn users that the input is deprecated. optional
 
 runs:
   using: 'docker' # must be set to docker
-  image: 'Dockerfile' # option 1: build & use this Dockerfile. must be named Dockerfile, and the path is relative to the action.yaml file
+  image: 'Dockerfile' # option 1: build & then use this Dockerfile. must be named Dockerfile. path is relative to the action.yaml file
   image: 'docker://debian:stretch-slim' # option 2: use a public image from Docker Hub
-  env: # environment variables to set inside the container environment. optional
+  env: # environment variables to set inside the container. optional
     KEY: value
     KEY: value
   pre-if: # condition to determine if the pre-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
