@@ -1,0 +1,39 @@
+# this is an example metadata file for a GitHub Docker Action
+# the file must be named 'action.yaml' or 'action.yml'
+# source: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
+# source: https://docs.github.com/en/actions/creating-actions/creating-a-docker-container-action
+
+name: 'Hello World' # name of your Composite Action. required
+author: 'Nathan Nellans' # author of your Composite Action. optional
+description: 'Greet someone' # description of your Composite Action. required
+branding: # branding is shown next to your action name in GitHub Marketplace. optional
+  color: 'green' # options are: white, yellow, blue, green, orange, red, purple, gray-dark
+  icon: 'globe' # pick an option from https://feathericons.com, however some options are omitted, read the docs
+
+inputs: # specifies input parameters that your Composite Action expects to receive when being called
+  who-to-greet: # id of this input parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores. recommend using lowercase input ids
+    description: 'Who to greet' # description of this input parameter. required
+    required: true # specifies if your Composite Action requires a value for this input parameter. optional
+    default: 'World' # default value to use if a value is not supplied when called. optional
+    deprecationMessage: 'Some Warning Message' # use this to warn users that the input is deprecated. optional
+
+runs:
+  using: 'docker' # must be set to docker
+  image: 'Dockerfile' # option 1: build & use this Dockerfile. must be named Dockerfile, and the path is relative to the action.yaml file
+  image: 'docker://debian:stretch-slim' # option 2: use a public image from Docker Hub
+  env: # environment variables to set inside the container environment. optional
+    KEY: value
+    KEY: value
+  pre-if: # condition to determine if the pre-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
+  pre-entrypoint: 'script.sh' # run a script before the entrypoint. optional
+  entrypoint: 'script.sh' # use when the Dockerfile does not specify an ENTRYPOINT, or if you want to override the Dockerfile's ENTRYPOINT. optional
+  args: # these are passed as arguments to the entrypoint. use when you want to override the Dockerfile's CMD. optional
+    - 'foo'
+    - 'bar'
+  post-if: # condition to determine if the post-entrypoint will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
+  post-entrypoint: 'script.sh' # run a script after the entrypoint. optional
+
+outputs:
+  random-number: # id of this output parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores
+    description: 'Random number' # description of this output parameter. required
+    value: ${{ steps.random-number-generator.outputs.random-number }} # value of this output parameter. required. can be set to a string or an expression
