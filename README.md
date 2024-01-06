@@ -445,10 +445,10 @@ jobs:
     secrets: inherit # pass all of the secrets from the parent workflow to the template. this includes org, repo, and environment secrets from the parent workflow
 ```
 
-# Composite Actions vs. Reusable Workflows
+# Reusable Actions vs. Reusable Workflows
 This list of features changes quite often. For example, Reusable Workflows being able to call other Reusable Workflows is fairly new.
 
-| | Composite Actions | Reusable Workflows |
+| | Reusable Actions | Reusable Workflows |
 | --- | --- | --- |
 | Scope | Step-level | Job-level |
 | Supports `env` variables<br />defined in parent Workflow | Yes | No |
@@ -460,7 +460,9 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Logging | Summarized | Logging for each Job and Step |
 
 > [!NOTE]
-> Here is a link to an example [action.yaml](./action.yaml) file showing the complete syntax for a Composite Action
+> Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
+> Example [action-docker.yaml](./action-docker.yaml) file showing the complete syntax for a reusable Docker Action
+> Example [action-node.yaml](./action-node.yaml) file showing the complete syntax for a reusable Node.js Action
 
 ---
 
