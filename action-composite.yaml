@@ -26,6 +26,7 @@ runs:
       if: # step conditions, ${{ ... }} can optionally be used to enclose your condition. optional
       env: # step-level variables. optional
         KEY: value
+        KEY: value
       working-directory: # only for 'run' steps, sets the current working directory. optional
       run: echo Hello ${{ inputs.who-to-greet }}. # single-line command to run
       shell: bash # required for a 'run' step. options are: bash, pwsh, python, sh, cmd, powershell
