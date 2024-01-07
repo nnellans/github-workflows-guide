@@ -60,7 +60,7 @@ on:
     types:
       - opened
   schedule:
-      - cron: '30 5,17 * * *'
+    - cron: '30 5,17 * * *'
 
 #option 4: manual trigger where you can specify a max of 10 inputs
 on:
