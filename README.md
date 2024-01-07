@@ -133,6 +133,14 @@ permissions: read-all | write-all
 permissions: {}
 ```
 
+More Info:
+- When you enable GitHub Actions, a GitHub App will be installed on your repo
+- The GITHUB_TOKEN secret is used to hold an installation access token for that app
+- Before each job begins, GitHub fetches an unique installation access token for the job
+  - The token expires when a job finishes or after a maximum of 24 hours.
+  - The token can authenticate on behalf of the GitHub App installed on your repo
+  - The token's permissions are limited to the repo that contains your workflow
+
 # Default Settings
 [Documentation - Setting Default Values for Jobs](https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs)
 - Creates a map of default settings that will be inherited downstream
