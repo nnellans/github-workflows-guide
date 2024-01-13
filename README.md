@@ -486,7 +486,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 
 [^1]: You can not directly pass GitHub Secrets to an Action. However, you could use a Secret for the value of one of the Action's input parameters, or you could use a Secret as the value of an environment variable that the Action could then read.
 
-> [!NOTE]
+> [!TIP]
 > - Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
 > - Example [action-docker.yaml](./action-docker.yaml) file showing the complete syntax for a reusable Docker Action
 > - Example [action-node.yaml](./action-node.yaml) file showing the complete syntax for a reusable Node.js Action
