@@ -301,10 +301,19 @@ jobs:
         timeout-minutes: 10 # max time to run the Step before killing the process
         env: # Step-level variables
           KEY: value
-        uses: actions/checkout@v3 # the action to run
-        with: # parameters to pass to the action, must match what is defined in the action
+        # option 1: use a public action
+        uses: actions/checkout@v3 # owner/repo@ref, or owner/repo/folder@ref, where ref can be a branch, tag, or SHA
+        # option 2: use an action file from a checked out repo
+        uses: ./.github/actions/someFolder # make sure to checkout the repo first, no ref is supported as it uses the ref that you checked out
+        # option 3: use an action from a public container image
+        uses: docker://alpine:3.8 # from Docker Hub
+        uses: docker://ghcr.io/owner/image # from GitHub Packages Container Registry
+        uses: docker://gcr.io/cloud-builders/gradle # from Google Container Registry
+        # parameters to pass to the action, must match what is defined in the action
+        with:
           param1: value1
           param2: value2
+          # when using an action from a public container image (option 3)
           args: 'something' # this overwrites the CMD instruction in your Dockerfile
           entrypoint: 'something' # this overwrite the ENTRYPOINT instruction in your Dockerfile
 
@@ -445,8 +454,12 @@ jobs:
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
     permissions: # job-level GITHUB_TOKEN permissions
     concurrency: # job-level concurrency group
-    uses: org/repo/.github/workflows/file.yaml@ref # the Job template to reference
-    with: # parameters to pass to the template, must match what is defined in the template
+    # option 1: a reusable workflow from another repo (public or private)
+    uses: org/repo/.github/workflows/file.yaml@ref # where ref can be a branch, tag, or SHA
+    # option 2: a reusable workflow file from the same repo
+    uses: ./.github/workflows/file.yaml # no ref is supported, it uses the same ref that triggered the parent workflow
+    # parameters to pass to the template, must match what is defined in the template
+    with:
       param1: value1
       param2: value2
     secrets: # secrets to pass to the template, must match what is defined in the template
