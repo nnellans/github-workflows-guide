@@ -27,10 +27,10 @@
 # Workflow Settings
 
 ```yaml
-# name of the workflow as shown in the GitHub UI:
+# name of the workflow as shown in the GitHub UI
 name: 'string' # optional, default is the path & name of the yaml file
 
-# name to use for each run of the workflow:
+# name to use for each run of the workflow
 run-name: 'string' # optional, default is specific to how your workflow was triggered
 ```
 - `run-name` can use expressions, and can reference the contexts of `github` and `inputs`
@@ -45,7 +45,6 @@ on: push
 # option 2: multiple events with no options
 # first form
 on: [push, fork]
-
 # second form
 on:
   - push
@@ -71,7 +70,7 @@ on:
         required: true | false
         default: 'defaultValue'
         type: boolean | number | string | choice
-        options: # when you choose type: choice
+        options: # only when type: choice
           - option1
           - option2
       someOtherInput:
@@ -307,7 +306,7 @@ jobs:
         uses: actions/checkout@v3 # owner/repo@ref, or owner/repo/folder@ref, where ref can be a branch, tag, or SHA
         # option 2: use an action file from a checked out repo
         uses: ./.github/actions/someFolder # make sure to checkout the repo first, no ref is supported as it uses the ref that you checked out
-        # option 3: use an action from a public container image
+        # option 3: use an action from a public container image (only on Linux runners)
         uses: docker://alpine:3.8 # from Docker Hub
         uses: docker://ghcr.io/owner/image # from GitHub Packages Container Registry
         uses: docker://gcr.io/cloud-builders/gradle # from Google Container Registry
@@ -477,14 +476,15 @@ This list of features changes quite often. For example, Reusable Workflows being
 | --- | --- | --- |
 | Scope | Step-level | Job-level |
 | Supports `env` variables<br />defined in parent Workflow | Yes | No |
-| Supports Secrets | No* | Yes (must be passed in) |
+| Input types | none (string) | boolean, number, string |
+| Input Secrets | No* | Yes |
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
 | Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(so, many per folder) |
 | Nesting | 10 levels | 4 levels |
 | Logging | Summarized | Logging for each Job and Step |
 
-\* Actions do not directly support GitHub Secrets. However, you could use a Secret for the value of one of the Action's input parameters, or you could use a Secret as the value of an environment variable that the Action could then read.
+\* You can not directly pass GitHub Secrets to an Action. However, you could use a Secret for the value of one of the Action's input parameters, or you could use a Secret as the value of an environment variable that the Action could then read.
 
 > [!NOTE]
 > - Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
