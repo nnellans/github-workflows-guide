@@ -477,14 +477,14 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Scope | Step-level | Job-level |
 | Supports `env` variables<br />defined in parent Workflow | Yes | No |
 | Input types | none (string) | boolean, number, string |
-| Input Secrets | No* | Yes |
+| Input Secrets | No[^1] | Yes |
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
 | Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(so, many per folder) |
 | Nesting | 10 levels | 4 levels |
 | Logging | Summarized | Logging for each Job and Step |
 
-\* You can not directly pass GitHub Secrets to an Action. However, you could use a Secret for the value of one of the Action's input parameters, or you could use a Secret as the value of an environment variable that the Action could then read.
+[^1]: You can not directly pass GitHub Secrets to an Action. However, you could use a Secret for the value of one of the Action's input parameters, or you could use a Secret as the value of an environment variable that the Action could then read.
 
 > [!NOTE]
 > - Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
