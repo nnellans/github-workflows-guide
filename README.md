@@ -489,7 +489,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 > [!TIP]
 > - Example [action-composite.yaml](./action-composite.yaml) file showing the complete syntax for a reusable Composite Action
 > - Example [action-docker.yaml](./action-docker.yaml) file showing the complete syntax for a reusable Docker Action
-> - Example [action-node.yaml](./action-node.yaml) file showing the complete syntax for a reusable Node.js Action
+> - Example [action-javascript.yaml](./action-javascript.yaml) file showing the complete syntax for a reusable JavaScript Action
 
 ---
 
