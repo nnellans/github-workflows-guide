@@ -37,4 +37,3 @@ runs:
 outputs:
   random-number: # id of this output parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores
     description: 'Random number' # description of this output parameter. required
-    value: ${{ steps.random-number-generator.outputs.random-number }} # value of this output parameter. required. can be set to a string or an expression
