@@ -1,31 +1,30 @@
-# this is an example metadata file for a GitHub Node Action
+# this is an example metadata file for a GitHub JavaScript Action
 # the file must be named 'action.yaml' or 'action.yml'
 # source: https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions
 # source: https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action
 
-name: 'Hello World' # name of your Node Action. required
-author: 'Nathan Nellans' # author of your Node Action. optional
-description: 'Greet someone' # description of your Node Action. required
+name: 'Hello World' # name of your JavaScript Action. required
+author: 'Nathan Nellans' # author of your JavaScript Action. optional
+description: 'Greet someone' # description of your JavaScript Action. required
 branding: # branding is shown next to your action name in GitHub Marketplace. optional
   color: 'green' # options are: white, yellow, blue, green, orange, red, purple, gray-dark
   icon: 'globe' # pick an option from https://feathericons.com, however some options are omitted, read the docs
 
-inputs: # specifies input parameters that your Node Action expects to receive when being called
+inputs: # specifies input parameters that your JavaScript Action expects to receive when being called
   who-to-greet: # id of this input parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores. recommend using lowercase input ids
     description: 'Who to greet' # description of this input parameter. required
-    required: true # specifies if your Node Action requires a value for this input parameter. optional
+    required: true # specifies if your JavaScript Action requires a value for this input parameter. optional
     default: 'World' # default value to use if a value is not supplied when called. optional
     deprecationMessage: 'Some Warning Message' # use this to warn users that the input is deprecated. optional
 
 runs:
-  using: 'node20' # must be set to a support version of Node.js
+  using: 'node20' # must be set to a supported version of Node.js
   pre: 'setup.js' # run a JavaScript file before main. optional
   pre-if: # condition to determine if the pre file will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
-  main: 'index.js' # the JavaScript file that contains your action's code
+  main: 'dist/index.js' # the JavaScript file that contains your action's code
   post: 'cleanup.js' # run a JavaScript file after main. optional
   post-if: # condition to determine if the post file will run or not. ${{ ... }} can optionally be used to enclose your condition. optional
 
 outputs:
   random-number: # id of this output parameter. required. must start with a letter or underscore. can only contain letters, numbers, dashes, or underscores
     description: 'Random number' # description of this output parameter. required
-    value: ${{ steps.random-number-generator.outputs.random-number }} # value of this output parameter. required. can be set to a string or an expression
