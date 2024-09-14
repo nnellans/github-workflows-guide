@@ -307,6 +307,7 @@ jobs:
         # option 2: use an action file from a checked out repo
         uses: ./.github/actions/someFolder # make sure to checkout the repo first, no ref is supported as it uses the ref that you checked out
         # option 3: use an action from a public container image (only on Linux runners)
+        # there is currently no way to authenticate to the specified registry, so be careful of rate limits. also, that means private registries are not supported
         uses: docker://alpine:3.8 # from Docker Hub
         uses: docker://ghcr.io/owner/image # from GitHub Packages Container Registry
         uses: docker://gcr.io/cloud-builders/gradle # from Google Container Registry
