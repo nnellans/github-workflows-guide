@@ -514,6 +514,14 @@ echo "::add-mask::This value will be masked"
 # Setting an environment variable
 echo "KEY=value" >> "$GITHUB_ENV"
 
+# Setting an environment variable with a multi-line value
+# Make sure the delimiter you're using won't occur on a line of its own within the value
+{
+  echo 'KEY<<DELIMETER'
+  command(s) that produce multiple lines of output
+  echo DELIMETER
+} >> "$GITHUB_ENV"
+
 # Setting an output parameter
 echo "KEY=value" >> "$GITHUB_OUTPUT"
 ```
