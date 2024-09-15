@@ -1,5 +1,13 @@
 # GitHub Workflow Guide
 
+- Version: 1.0.0
+- Author:
+  - Nathan Nellans
+  - Email: me@nathannellans.com
+  - Web:
+    - https://www.nathannellans.com
+    - https://github.com/nnellans/github-workflows-guide
+
 > [!WARNING]
 > This is an advanced guide and assumes you already know the basics of GitHub Workflows.  Think of this more like an advanced cheat sheet.  I went through the documentation and captured any notes that I felt were important, and organized them into the README file you see here.  If you are new to GitHub Workflows, then I would suggest going through the GitHub docs first.
 
