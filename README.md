@@ -514,16 +514,39 @@ echo "::add-mask::This value will be masked"
 # Setting an environment variable
 echo "KEY=value" >> "$GITHUB_ENV"
 
-# Setting an environment variable with a multi-line value
+# Setting an output parameter
+echo "KEY=value" >> "$GITHUB_OUTPUT"
+```
+
+### Multi-Line Values
+
+If you need to mask a sensitive, multi-line value, then you can do the following:
+
+```bash
+SENSITIVE="$(command that outputs a sensitive, multi-line value)"
+while read -r line
+do
+  echo "::add-mask::${line}"
+done <<< "$SENSITIVE"
+
+# In this example, the sensitive value will be assigned to the variable called SENSITIVE
+# The command used on line 1 will be logged in plain-text in the logs, so it must not include sensitive values
+# (this is a plain-text YAML file, so you would never do that in the first place, right?)
+# The value assigned to the variable is then read, line-by-line, and a mask is applied to each line's value
+
+# An example of a safe command you could use would be something like this:
+SENSITIVE="$(az keyvault secret show --name MySecretName --vault-name MyVaultName --query value --output tsv)"
+```
+
+If you need to set an environment variable or an output to use a multi-line value, then you can do the following:
+
+```bash
 # Make sure the delimiter you're using won't occur on a line of its own within the value
 {
   echo 'KEY<<DELIMETER'
   command(s) that produce multiple lines of output
   echo DELIMETER
 } >> "$GITHUB_ENV"
-
-# Setting an output parameter
-echo "KEY=value" >> "$GITHUB_OUTPUT"
 ```
 
 > [!WARNING]
