@@ -1,6 +1,6 @@
 # GitHub Workflow Guide
 
-- Version: 1.0.0
+- Version: 1.0.1
 - Author:
   - Nathan Nellans
   - Email: me@nathannellans.com
@@ -110,9 +110,9 @@ on:
 
 # Permissions for the GITHUB_TOKEN
 [Documentation - Permissions for the GitHub Token](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)
-- Use this if you want to modify the default permissions granted to the GITHUB_TOKEN
+- Use this if you want to modify the default permissions granted to the `GITHUB_TOKEN`
 - Optional, the default can be set (by an admin) to either a `permissive` preset or a `restricted` preset (more info at the link above)
-- As a good security practice, you should grant the GITHUB_TOKEN the least required access
+- As a good security practice, you should grant the `GITHUB_TOKEN` the least required access
 - When the `permissions` key is used, all unspecified permissions are set to `none`, with the exception of the `metadata` scope, which always gets `read` access.
 - Supported scopes for `permissions`: workflow-level, job-level
 
@@ -141,12 +141,13 @@ permissions: {}
 ```
 
 More Info:
-- When you enable GitHub Actions, a GitHub App will be installed on your repo
-- The GITHUB_TOKEN secret is used to hold an installation access token for that app
+- When you enable GitHub Actions, then a GitHub App will be installed on your repo
+  - The `GITHUB_TOKEN` secret is used to hold an installation access token for that app
 - Before each job begins, GitHub fetches an unique installation access token for the job
   - The token expires when a job finishes or after a maximum of 24 hours.
   - The token can authenticate on behalf of the GitHub App installed on your repo
   - The token's permissions are limited to the repo that contains your workflow
+- [My blog post all about GitHub Apps and the `GITHUB_TOKEN`](https://www.nathannellans.com/post/github-apis-github-tokens-and-github-action-workflows)
 
 # Default Settings
 [Documentation - Setting Default Values for Jobs](https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs)
@@ -546,11 +547,10 @@ do
 done <<< "$SENSITIVE"
 
 # In this example, the sensitive value will be assigned to the variable called SENSITIVE
-# The command used on line 1 will be logged in plain-text in the logs, so it must not include sensitive values
-# (this is a plain-text YAML file, so you would never do that in the first place, right?)
+# The command used on line 1 will be logged in plain-text, so it must not include sensitive values (but, this is a plain-text YAML file, so you would never do that in the first place, right?)
 # The value assigned to the variable is then read, line-by-line, and a mask is applied to each line's value
 
-# An example of a safe command you could use would be something like this:
+# An example of a safe command you could use:
 SENSITIVE="$(az keyvault secret show --name MySecretName --vault-name MyVaultName --query value --output tsv)"
 ```
 
