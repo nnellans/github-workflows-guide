@@ -1,6 +1,6 @@
 # GitHub Workflow Guide
 
-- Version: 1.0.1
+- Version: 1.0.2
 - Author:
   - Nathan Nellans
   - Email: me@nathannellans.com
@@ -465,6 +465,7 @@ jobs:
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
     permissions: # job-level GITHUB_TOKEN permissions
     concurrency: # job-level concurrency group
+    strategy: # define a matrix for parallel jobs
     # option 1: a reusable workflow from another repo (public or private)
     uses: org/repo/.github/workflows/file.yaml@ref # where ref can be a branch, tag, or SHA
     # option 2: a reusable workflow file from the same repo
@@ -490,7 +491,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Input Secrets | No[^1] | Yes |
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
-| Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(so, many per folder) |
+| Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(must be in `.github/workflows/` -<br />no subfolders) |
 | Nesting | 10 levels | 4 levels |
 | Logging | Summarized | Logging for each Job and Step |
 
