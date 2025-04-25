@@ -77,7 +77,7 @@ on:
         description:
         required: true | false
         default: 'defaultValue'
-        type: boolean | number | string | choice
+        type: boolean | number | string | choice | environment
         options: # only when type: choice
           - option1
           - option2
