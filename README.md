@@ -109,9 +109,10 @@ on:
 - If multiple events happen at the same time, then multiple runs of the workflow will trigger
 
 # Permissions for the GITHUB_TOKEN
-[Documentation - Permissions for the GitHub Token](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)
+[Documentation - Modifying the permissions for the GITHUB_TOKEN](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token#modifying-the-permissions-for-the-github_token)
+<br />[Documentation - Workflow Syntax - Permissions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions)
 - Use this if you want to modify the default permissions granted to the `GITHUB_TOKEN`
-- Optional, the default can be set (by an admin) to either a `permissive` preset or a `restricted` preset (more info at the link above)
+- Optional, the default can be set in the repo settings (by an admin) to either a `permissive` preset or a `restricted` preset
 - As a good security practice, you should grant the `GITHUB_TOKEN` the least required access
 - When the `permissions` key is used, all unspecified permissions are set to `none`, with the exception of the `metadata` scope, which always gets `read` access.
 - Supported scopes for `permissions`: workflow-level, job-level
@@ -120,16 +121,17 @@ on:
 # option 1: full syntax
 permissions:
   actions: read | write | none
+  attestations: read | write | none
   checks: read | write | none
   contents: read | write | none
   deployments: read | write | none
+  discussions: read | write | none
   id-token: read | write | none
   issues: read | write | none
-  discussions: read | write | none
+  models: read | none
   packages: read | write | none
   pages: read | write | none
   pull-requests: read | write | none
-  repository-projects: read | write | none
   security-events: read | write | none
   statuses: read | write | none
 
