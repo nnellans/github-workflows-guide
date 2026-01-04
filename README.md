@@ -564,7 +564,7 @@ echo "KEY=value" >> "$GITHUB_OUTPUT"
 
 > [!WARNING]
 > A masked value can NOT be passed from one Job to another Job in GitHub Actions
-> - [GitHub Discusson](https://github.com/orgs/community/discussions/13082) on this topic
+> - [GitHub Discussion](https://github.com/orgs/community/discussions/13082) on this topic
 > - The [official docs](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#example-masking-and-passing-a-secret-between-jobs-or-workflows) want you to use a secret store, such as Azure KeyVault, to solve this problem. In effect, Job 1 uploads the value to the secret store, and then Job 2 downloads the value from the secret store.
 
 ### Multi-Line Values
