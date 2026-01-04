@@ -28,6 +28,7 @@
   - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-job-level-template)
 - [Reusable Actions vs. Reusable Workflows](#reusable-actions-vs-reusable-workflows)
 - [Workflow Commands](#workflow-commands)
+- [YAML Anchors & Aliases](#yaml-anchors--aliases)
 - [Links](#links)
 
 ---
@@ -46,19 +47,18 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 # Triggers
 [Documentation - Triggering a Workflow](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow)
 
+[Documentation - Events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
+
 ```yaml
 # option 1: single event with no options
 on: push
 
 # option 2: multiple events with no options
-# first form
-on: [push, fork]
-# second form
 on:
   - push
   - fork
 
-#option 3: events with options
+# option 3: events with options
 on:
   push:
     branches:
@@ -69,7 +69,7 @@ on:
   schedule:
     - cron: '30 5,17 * * *'
 
-#option 4: manual trigger where you can specify a max of 10 inputs
+# option 4: manual trigger where you can specify a max of 25 inputs
 on:
   workflow_dispatch:
     inputs:
@@ -86,7 +86,7 @@ on:
         required: true
         type: string
 
-#option 5: if this workflow is used as a reusable workflow (job-level template)
+# option 5: if this workflow is used as a reusable workflow (job-level template)
 on:
   workflow_call:
     inputs: # input parameters
@@ -110,7 +110,9 @@ on:
 
 # Permissions for the GITHUB_TOKEN
 [Documentation - Modifying the permissions for the GITHUB_TOKEN](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token#modifying-the-permissions-for-the-github_token)
-<br />[Documentation - Workflow Syntax - Permissions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions)
+
+[Documentation - Workflow Syntax - Permissions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#permissions)
+
 - Use this if you want to modify the default permissions granted to the `GITHUB_TOKEN`
 - Optional, the default can be set in the repo settings (by an admin) to either a `permissive` preset or a `restricted` preset
 - As a good security practice, you should grant the `GITHUB_TOKEN` the least required access
@@ -285,7 +287,7 @@ steps:
 jobs:
   symbolicJobName: # must be unique, start with a letter or underscore, and only contain letters, numbers, dashes, and underscores
     name: 'string' # friendly name that is shown in the GitHub UI
-    runs-on: windows-latest | ubuntu-latest | macos-latest | self-hosted # specifies the Agent to run on
+    runs-on: windows-latest | ubuntu-slim | ubuntu-latest | macos-latest | self-hosted # specifies the Agent to run on
     needs: # Job dependencies
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
     continue-on-error: true # allows the Workflow to pass if this Job fails
@@ -480,7 +482,10 @@ jobs:
 - Any secrets in an Output are redacted and not sent to GitHub Actions
 
 ## Jobs that call a reusable workflow (job-level template):
-[Documentation - Reusing Workflows](https://docs.github.com/en/actions/using-workflows/reusing-workflows)
+[Documentation - Reuse Workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows)
+
+[Documentation - Reusing workflow configurations](https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations)
+
 - Only the following parameters are supported in such a Job
 
 ```yaml
@@ -518,7 +523,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 | Supports Service Containers | No | Yes |
 | Can specify Agent<br />(`runs-on`) | No | Yes |
 | Filename | Must be `action.yml`<br />(so, 1 per folder) | Can be anything `.yml`<br />(must be in `.github/workflows/` -<br />no subfolders) |
-| Nesting | 10 levels | 4 levels |
+| Nesting | 10 levels | 10 levels |
 | Logging | Summarized | Logging for each Job and Step |
 
 [^1]: You can not directly pass GitHub Secrets to an Action. However, you could use a Secret for the value of one of the Action's input parameters, or you could use a Secret as the value of an environment variable that the Action could then read.
@@ -590,6 +595,28 @@ If you need to set an environment variable or an output to use a multi-line valu
   command(s) that produce multiple lines of output
   echo DELIMETER
 } >> "$GITHUB_ENV"
+```
+
+---
+
+# YAML Anchors & Aliases
+[Documentation - YAML anchors and aliases](https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations)
+- GitHub Actions supports a limited set of YAML features like anchors and aliases
+- Use `&symbolicName` to define the anchor (the section you want to capture)
+- Use `*symbolicName` to define one or more aliases, where each one will be a copy of the anchor
+- YAML Merge Keys, specified by `<<:` are not yet supported by GitHub. This means each anchor must be copied exactly as-is, with no way to add an override of a single value
+
+```yaml
+jobs:
+
+  firstSymbolicJobName:
+    env: &anchorName # this defines the section that will become the anchor
+      KEY1: value1
+      KEY2: value2
+      KEY3: value3
+
+  secondSymbolicJobName:
+    env: *anchorName # this defines an alias (the values in the anchor will be copied here)
 ```
 
 ---
