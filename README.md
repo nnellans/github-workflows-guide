@@ -1,6 +1,6 @@
 # GitHub Workflow Guide
 
-- Version: 1.0.2
+- Version: 1.1.0
 - Author:
   - Nathan Nellans
   - Email: me@nathannellans.com
