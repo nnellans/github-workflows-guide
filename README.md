@@ -298,6 +298,7 @@ jobs:
     
     environment: # see more below
     container: # see more below
+    snapshot: # see more below
     services: # see more below
     strategy: # see more below
     outputs: # see more below
@@ -390,6 +391,29 @@ jobs:
 - Only for Steps that don't already use their own Container
 - Only supported on Microsoft-hosted Ubuntu runners, or self-hosted Linux runners
 - `run` Steps inside of a Container will default to the `sh` shell, but you can override with `jobid.defaults.run` or `step.shell`
+
+### Job.Snapshot
+[Documentation - Using custom images](https://docs.github.com/en/actions/how-tos/manage-runners/larger-runners/use-custom-images)
+- For creating custom images that you can use with GitHub-hosted larger runners
+- Lets you preinstall tools, dependencies, and configurations into your runner image
+- Each job that includes the `snapshot` keyword creates a separate image
+- Each successful run of a job that includes the `snapshot` keyword creates a new version of that image
+
+```yaml
+jobs:
+  symbolicJobName:
+
+    # option 1 - string syntax
+    # just specify an image name, this either creates a new image (1.0.0) or adds a new (minor) version to the existing image
+    # can not specify a version number with this syntax
+    snapshot: customImageName
+
+    # option 2 - mapping syntax
+    # lets you specify a version number, only major & minor versions are supported, patch version are not supported
+    snapshot:
+      image-name: customImageName
+      version: 2.*
+```
 
 ### Job.Services
 [Documentation - About Service Containers](https://docs.github.com/en/actions/using-containerized-services/about-service-containers)
