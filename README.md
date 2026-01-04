@@ -45,7 +45,7 @@ run-name: 'string' # optional, default is specific to how your workflow was trig
 - `run-name` can use expressions, and can reference the contexts of `github` and `inputs`
 
 # Triggers
-[Documentation - Triggering a Workflow](https://docs.github.com/en/actions/using-workflows/triggering-a-workflow)
+[Documentation - Triggering a workflow](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)
 
 [Documentation - Events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
 
@@ -154,7 +154,7 @@ More Info:
 - [My blog post all about GitHub Apps and the `GITHUB_TOKEN`](https://www.nathannellans.com/post/github-apis-github-tokens-and-github-action-workflows)
 
 # Default Settings
-[Documentation - Setting Default Values for Jobs](https://docs.github.com/en/actions/using-jobs/setting-default-values-for-jobs)
+[Documentation - Setting a default shell and working directory](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/set-default-values-for-jobs)
 - Creates a map of default settings that will be inherited downstream
 - Supported scopes for `defaults`: workflow-level, job-level
   - The most specific defaults wins
@@ -167,7 +167,7 @@ defaults:
 ```
 
 # Concurrency Settings
-[Documentation - Using Concurrency](https://docs.github.com/en/actions/using-jobs/using-concurrency)
+[Documentation - Control the concurrency of workflows and jobs](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency)
 - Ensures that only one Workflow (or only one Job) from the specified concurrency group can run at a time
 - Optional
 - Supported scopes for `concurrency`: workflow-level, job-level
@@ -185,7 +185,7 @@ concurrency:
 - Default behavior: If a Workflow/Job in the concurrency group is currently running, then any new Workflows/Jobs will be placed into a pending state and will wait for the original Workflow/Job to finish. Only the most recent Workflow/Job is kept in the pending state, and all others will be cancelled.
 
 # Variables
-[Documentation - Variables](https://docs.github.com/en/actions/learn-github-actions/variables)
+[Documentation - Store information in variables](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-variables)
 ### Environment Variables
 - Cannot reference other variables in the same map
 - Supported scopes for `env`: workflow-level, job-level, step-level
@@ -251,7 +251,7 @@ windows cmd:  %KEY%
 ---
 
 # Secrets
-[Documentation - Secrets](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions)
+[Documentation - Using secrets in GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
 - Defined in the GitHub UI
 - Can be shared by multiple Workflows
 - Supported scopes for `secrets`: organization-level, repo-level, repo environment-level
@@ -281,7 +281,7 @@ steps:
 # Jobs / Defining the work
 
 ## Normal Jobs:
-[Documentation - Using Jobs in a Workflow](https://docs.github.com/en/actions/using-jobs/using-jobs-in-a-workflow)
+[Documentation - Using jobs in a workflow](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-jobs)
 
 ```yaml
 jobs:
@@ -347,7 +347,7 @@ jobs:
 ```
 
 ### Job.Environment
-[Documentation - Using Environments for Deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
+[Documentation - Managing environments for deployment](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 - Specifies a GitHub environment to deploy to
 
 ```yaml
@@ -365,7 +365,7 @@ jobs:
 - `envName` can be a string or any expression (except for the `secrets` context)
 
 ### Job.Container
-[Documentation - Running Jobs in a Container](https://docs.github.com/en/actions/using-jobs/running-jobs-in-a-container)
+[Documentation - Running jobs in a container](https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/run-jobs-in-a-container)
 - Defines a container that will run all Steps in this Job
 
 ```yaml
@@ -418,7 +418,7 @@ jobs:
 ```
 
 ### Job.Services
-[Documentation - About Service Containers](https://docs.github.com/en/actions/using-containerized-services/about-service-containers)
+[Documentation - Communicating with Docker service containers](https://docs.github.com/en/actions/tutorials/use-containerized-services/use-docker-service-containers)
 - Defines service container(s) that are used by your Job
 
 ```yaml
@@ -443,7 +443,7 @@ jobs:
 - Not supported inside a composite action
 
 ### Job.Strategy
-[Documentation - Using a Matrix for your Jobs](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs)
+[Documentation - Running variations of jobs in a workflow](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/run-job-variations)
 - Use variables to make one Job run multiple different times
 
 ```yaml
@@ -466,7 +466,7 @@ jobs:
 - When `fail-fast` is set to `true`, if any job in the matrix fails, then all in-progress and queued jobs in the matrix will be cancelled
 
 ### Job.Outputs
-[Documentation - Defining Outputs for Jobs](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs)
+[Documentation - Passing information between jobs](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/pass-job-outputs)
 - Specify outputs of this Job
 
 ```yaml
@@ -536,7 +536,7 @@ This list of features changes quite often. For example, Reusable Workflows being
 ---
 
 # Workflow Commands
-[Documentation - Workflow Commands](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions)
+[Documentation - Workflow commands for GitHub Actions](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands)
 - These are special commands that can be used to communicate with the runner machine
 - They can do multiple different things, such as set environment variables, set output values, set debug messages, and more
 - Depending on the specific Workflow Command, it can be used in one of two ways:
@@ -565,7 +565,7 @@ echo "KEY=value" >> "$GITHUB_OUTPUT"
 > [!WARNING]
 > A masked value can NOT be passed from one Job to another Job in GitHub Actions
 > - [GitHub Discusson](https://github.com/orgs/community/discussions/13082) on this topic
-> - The [official docs](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#example-masking-and-passing-a-secret-between-jobs-or-workflows) want you to use a secret store, such as Azure KeyVault, to solve this problem. In effect, Job 1 uploads the value to the secret store, and then Job 2 downloads the value from the secret store.
+> - The [official docs](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#example-masking-and-passing-a-secret-between-jobs-or-workflows) want you to use a secret store, such as Azure KeyVault, to solve this problem. In effect, Job 1 uploads the value to the secret store, and then Job 2 downloads the value from the secret store.
 
 ### Multi-Line Values
 
