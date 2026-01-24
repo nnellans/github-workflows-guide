@@ -123,6 +123,7 @@ on:
 # option 1: full syntax
 permissions:
   actions: read | write | none
+  artifact-metadata: read | write | none
   attestations: read | write | none
   checks: read | write | none
   contents: read | write | none
