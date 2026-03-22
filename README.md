@@ -623,6 +623,19 @@ jobs:
 
 ---
 
+# Expressions
+[Documentation - Evaluate expressions in workflows and actions](https://docs.github.com/en/actions/reference/workflows-and-actions/expressions)
+
+### `case` expression
+
+```
+case( pred1, val1, pred2, val2, ..., default )
+```
+
+- Evaluates predicates in order and returns the value corresponding to the first predicate that evaluates to true. If no predicate matches, it returns the last argument as the default value.
+
+---
+
 # Links
 - official github actions: https://github.com/orgs/actions/repositories
 - official azure actions: https://github.com/marketplace?query=Azure&type=actions&verification=verified_creator
