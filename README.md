@@ -361,7 +361,8 @@ jobs:
     # option 2 - specify environment name and url
     environment:
       name: envName
-      url: someUrl
+      url: someUrl # optional
+      deployment: true # optional, default: true. setting to false will not create a deployment object, not compatible with custom deployment protection rules
 ```
 - `envName` can be a string or any expression (except for the `secrets` context)
 
