@@ -58,7 +58,7 @@ on:
   - push
   - fork
 
-# option 3: events with options
+# option 3: multiple events with options
 on:
   push:
     branches:
@@ -68,6 +68,7 @@ on:
       - opened
   schedule:
     - cron: '30 5,17 * * *'
+      timezone: 'America/New_York'
 
 # option 4: manual trigger where you can specify a max of 25 inputs
 on:
