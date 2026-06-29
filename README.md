@@ -397,7 +397,7 @@ jobs:
 
       # use the parallel keyword as a convenient shorthand to group multiple background steps together
       # all steps will run as background steps
-      # github will automatically wait for all background steps in the group to finish before the job moves on.
+      # the job will automatically wait for all steps in the group to finish before moving on
       - parallel:
         - name: backgroundStep1
           run: command1
