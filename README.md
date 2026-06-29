@@ -1,6 +1,6 @@
 # GitHub Workflow Guide
 
-- Version: 1.2.0
+- Version: 1.3.1
 - Author:
   - Nathan Nellans
   - Email: me@nathannellans.com
@@ -13,6 +13,9 @@
 
 > [!IMPORTANT]
 > This is a live document.  Some of the sections are still a work in progress.  I will be continually updating it over time.
+
+> [!TIP]
+> AI was not used in the creation of this guide.
 
 ---
 # Table of Contents
