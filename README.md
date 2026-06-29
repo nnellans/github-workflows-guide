@@ -1,6 +1,6 @@
 # GitHub Workflow Guide
 
-- Version: 1.3.1
+- Version: 1.4.0
 - Author:
   - Nathan Nellans
   - Email: me@nathannellans.com
@@ -321,6 +321,11 @@ jobs:
         timeout-minutes: 10 # max time to run the Step before killing the process
         env: # Step-level variables
           KEY: value
+        # step concurrency
+        background: # see more below
+        wait: # see more below
+        wait-all: # see more below
+        cancel: # see more below
         # option 1: use a public action
         uses: actions/checkout@v3 # owner/repo@ref, or owner/repo/folder@ref, where ref can be a branch, tag, or SHA
         # option 2: use an action file from a checked out repo
@@ -338,6 +343,15 @@ jobs:
           args: 'something' # this overwrites the CMD instruction in your Dockerfile
           entrypoint: 'something' # this overwrite the ENTRYPOINT instruction in your Dockerfile
 
+      # Run a group of steps concurrently, see more below
+      - parallel: # see more below
+        - name: step1
+          run: some command
+        - name: step2
+          run: some command
+        - name: step3
+          run: some command
+
       # Run a single-line Script
       - name: something2
         run: single-line command
@@ -350,6 +364,54 @@ jobs:
           multi-line
           command
 ```
+
+### Step Concurrency
+[GitHub Changelog Announcement](https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/)
+- Allows you to run multiple steps in parallel, with various options:
+
+```yaml
+jobs:
+  symbolicJobName:
+    steps:
+
+      # use the background keyword to run a step asynchronously
+      # the job will immediately continue to the next step without waiting for this one to finish
+      - name: someStepName
+        id: someStepID
+        background: true
+
+      # use the wait keyword to pause the job until the given background step(s) finish
+      - name: anotherStepName
+        wait: someBackgroundStepID # option 1: wait on a single background step
+        wait: # option 2: wait on multiple background steps
+          - someBackgroundStepID
+          - someBackgroundStepID
+
+      # use the wait-all keyword to pause the job until ALL background steps finish
+      - name: yetAnotherStepName
+        wait-all: # this keyword takes no arguments
+
+      # use the cancel keyword to gracefully stop a single background step
+      - name: oneMoreStepName
+        cancel: someBackgroundStepID
+
+      # use the parallel keyword as a convenient shorthand to group multiple background steps together
+      # all steps will run as background steps
+      # github will automatically wait for all background steps in the group to finish before the job moves on.
+      - parallel:
+        - name: backgroundStep1
+          run: command1
+        - name: backgroundStep2
+          run: command2
+        - name: backgroundStep3
+          run: command3
+
+```
+- A maximum of 10 background steps can run concurrently in a single job. Additional background steps will be queued up.
+- The `background` keyword works on steps that use the `run` or `uses` keywords.
+- Outputs from a `background` step are only available once the matching `wait` step completes.
+- If a `background` step fails, then the matching `wait` or `wait-all` steps fail as well.
+- The `cancel` keyword will first try a `SIGTERM` termination signal, and if the step does not exit within a short grace period then it will send a `SIGKILL` termination signal.
 
 ### Job.Environment
 [Documentation - Managing environments for deployment](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
