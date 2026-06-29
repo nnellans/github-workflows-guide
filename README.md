@@ -370,7 +370,6 @@ jobs:
 - Allows you to run multiple steps in parallel, with various options:
 
 ```yaml
-# the background, wait, wait-all, and cancel keywords
 jobs:
   symbolicJobName:
     steps:
@@ -395,6 +394,17 @@ jobs:
       # use the cancel keyword to gracefully stop a single background step
       - name: oneMoreStepName
         cancel: someBackgroundStepID
+
+      # use the parallel keyword as a convenient shorthand to group multiple background steps together
+      # all steps will run as background steps
+      # github will automatically wait for all background steps in the group to finish before the job moves on.
+      - parallel:
+        - name: backgroundStep1
+          run: command1
+        - name: backgroundStep2
+          run: command2
+        - name: backgroundStep3
+          run: command3
 
 ```
 - A maximum of 10 background steps can run concurrently in a single job. Additional background steps will be queued up.
