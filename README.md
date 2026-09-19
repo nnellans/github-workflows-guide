@@ -283,10 +283,6 @@ steps:
       someInput: ${{ secrets.Key }}
 ```
 
-```yaml
-cache-mode: read | write | write-only | none
-```
-
 # Cache Mode
 [Documentation - Dependency caching reference](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching)
 - Supported scopes for `cache-mode`: workflow-level, job-level
@@ -300,6 +296,10 @@ cache-mode: read | write | write-only | none
 | `write` | :white_check_mark: | :white_check_mark: |
 | `write-only` | :x: | :white_check_mark: |
 | `none` | :x: | :x: |
+
+```yaml
+cache-mode: read | write | write-only | none
+```
 
 # Jobs / Defining the work
 
