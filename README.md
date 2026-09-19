@@ -26,6 +26,7 @@
 - [Concurrency Settings](#concurrency-settings)
 - [Variables](#variables)
 - [Secrets](#secrets)
+- [Cache Mode](#cache-mode)
 - [Jobs and Steps](#jobs--defining-the-work)
   - [Normal Jobs](#normal-jobs)
   - [Calling a Reusable Workflow](#jobs-that-call-a-reusable-workflow-job-level-template)
