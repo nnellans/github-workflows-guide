@@ -1,6 +1,6 @@
 # GitHub Workflow Guide
 
-- Version: 1.4.0
+- Version: 1.5.0
 - Author:
   - Nathan Nellans
   - Email: me@nathannellans.com
@@ -130,6 +130,7 @@ permissions:
   artifact-metadata: read | write | none
   attestations: read | write | none
   checks: read | write | none
+  code-quality: read | write | none
   contents: read | write | none
   deployments: read | write | none
   discussions: read | write | none
@@ -141,6 +142,7 @@ permissions:
   pull-requests: read | write | none
   security-events: read | write | none
   statuses: read | write | none
+  vulnerability-alerts: read | none
 
 # option 2: shortcut syntax to provide read or write access for all scopes
 permissions: read-all | write-all
