@@ -253,8 +253,6 @@ windows powershell:  $env:KEY
 windows cmd:  %KEY%
 ```
 
----
-
 # Secrets
 [Documentation - Using secrets in GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
 - Defined in the GitHub UI
@@ -283,6 +281,24 @@ steps:
       someInput: ${{ secrets.Key }}
 ```
 
+```yaml
+cache-mode: read | write | write-only | none
+```
+
+# Cache Mode
+[Documentation - Dependency caching reference](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching)
+- Supported scopes for `cache-mode`: workflow-level, job-level
+- When specified at the workflow-level, it controls all jobs in the workflow
+  - An individual job can override this by specifying `cache-mode` at the job-level
+- If this is omitted, then a default value is selected based on your workflow's trigger type, see the docs.
+
+| Value | Restore Caches | Save Caches |
+| --- | :---: | :---: |
+| `read` | :white_check_mark: | :x: |
+| `write` | :white_check_mark: | :white_check_mark: |
+| `write-only` | :x: | :white_check_mark: |
+| `none` | :x: | :x: |
+
 # Jobs / Defining the work
 
 ## Normal Jobs:
@@ -300,6 +316,7 @@ jobs:
     permissions: # job-level GITHUB_TOKEN permissions
     defaults: # job-level defaults
     concurrency: # job-level concurrency group
+    cache-mode: # job-level cache-mode
     env: # job-level variables
       KEY: value
     
