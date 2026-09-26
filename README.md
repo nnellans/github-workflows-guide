@@ -349,7 +349,7 @@ jobs:
         # option 1: use a public action
         uses: actions/checkout@v3 # owner/repo@ref, or owner/repo/folder@ref, where ref can be a branch, tag, or SHA
         # option 2: use an action file from a checked out repo
-        uses: ./.github/actions/someFolder # make sure to checkout the repo first, no ref is supported as it uses the ref that you checked out
+        uses: $/.github/actions/someFolder # make sure to checkout the repo first, no ref is supported as it uses the ref that you checked out
         # option 3: use an action from a public container image (only on Linux runners)
         # there is currently no way to authenticate to the specified registry, so be careful of rate limits. also, that means private registries are not supported
         uses: docker://alpine:3.8 # from Docker Hub
@@ -584,11 +584,12 @@ jobs:
     if: # Job conditions, ${{ ... }} can optionally be used to enclose your condition
     permissions: # job-level GITHUB_TOKEN permissions
     concurrency: # job-level concurrency group
+    cache-mode: # job-level cache mode
     strategy: # define a matrix for parallel jobs
     # option 1: a reusable workflow from another repo (public or private)
     uses: org/repo/.github/workflows/file.yaml@ref # where ref can be a branch, tag, or SHA
     # option 2: a reusable workflow file from the same repo
-    uses: ./.github/workflows/file.yaml # no ref is supported, it uses the same ref that triggered the parent workflow
+    uses: $/.github/workflows/file.yaml # no ref is supported, it uses the same ref that triggered the parent workflow
     # parameters to pass to the template, must match what is defined in the template
     with:
       param1: value1
