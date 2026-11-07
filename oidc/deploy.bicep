@@ -20,27 +20,32 @@ param federatedCredentials {
   name: string
   audiences: string[]
   issuer: string
-  subject: string
+  subject: string?
+  claimsMatchingExpression: {
+    languageVersion: int
+    value: string
+  }?
 }[] = []
 
 //-----------------------
 // Resources
 //-----------------------
-resource uamIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+resource uamIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-05-31-preview' = {
   name: name
   location: location
   tags: tags
 }
 
 @batchSize(1) // Can only deploy 1 Federated Credential at a time
-resource federatedCredential 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2023-01-31' = [for item in federatedCredentials: {
+resource federatedCredential 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2025-05-31-preview' = [for item in federatedCredentials: {
   parent: uamIdentity
   
   name: item.name
   properties: {
     audiences: item.audiences
     issuer: item.issuer
-    subject: item.subject
+    subject: item.?subject
+    claimsMatchingExpression: item.?claimsMatchingExpression
   }
 }]
 
