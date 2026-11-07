@@ -46,7 +46,10 @@ param fedCreds = [
     name: 'GitHubActions-FederatedCredential-flexible'
     audiences: ['api://AzureADTokenExchange']
     issuer: 'https://token.actions.githubusercontent.com'
-    claimsMatchingExpression: 'claims[\'sub\'] matches \'*\' and claims[\'repository_owner_id\'] eq \'<OwnerID>\''
+    claimsMatchingExpression: {
+      languageVersion: 1
+      value: 'claims[\'sub\'] matches \'*\' and claims[\'repository_owner_id\'] eq \'<OwnerID>\''
+    }
   }
 
 ]
