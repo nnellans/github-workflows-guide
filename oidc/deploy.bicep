@@ -15,7 +15,7 @@ param location string = resourceGroup().location
 @description('Optional. Tags to assign to the Identity. Default is no tags')
 param tags object = {}
 
-@description('Optional. An array of objects defining the Federated Credential(s) for the Identity. Default is no credentials')
+@description('Optional. An array of objects defining the Federated Credential(s) for the Identity. Default is no credentials. Provide either subject or claimsMatchingExpression, but not both')
 param federatedCredentials {
   name: string
   audiences: string[]
