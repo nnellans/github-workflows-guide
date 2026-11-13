@@ -6,7 +6,7 @@ param tags = {
   tagName1: 'tagValue1'
   tagName2: 'tagValue2'
 }
-param fedCreds = [
+param federatedCredentials = [
 
   // Example showing the default GitHub subject claim template
   // This is the "mutable" format for repos created before July 15, 2026
@@ -42,6 +42,8 @@ param fedCreds = [
   }
 
   // Example showing a "Flexible" Federated Credential that uses a Claims Matching Expression
+  // The Azure Portal currently doesn't show these credentials for a Managed Identity, you can
+  // use the Az CLI in this case:  az cli identity federated-credential list
   {
     name: 'GitHubActions-FederatedCredential-flexible'
     audiences: ['api://AzureADTokenExchange']
