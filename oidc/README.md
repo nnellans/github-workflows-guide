@@ -14,7 +14,7 @@ These Federated Credentials allow you to use OpenID Connect within your GitHub w
      ```
    - Use a good value for the Federated Credential `name` as this can not be changed later.
 2. Assign some Azure RBAC roles to your new identity (whatever resources it will need permissions to)
-3. In your GitHub Workflow use the Azure/login action to log into Azure using the new identity using password-less OIDC authentication.
+3. In your GitHub Workflow use the Azure/login action to log into Azure using the new identity using password-less OIDC authentication.  [Check the docs](https://github.com/Azure/login#login-with-openid-connect-oidc-recommended) for more info.
 4. Your GitHub Workflow can now run commands to interact with Azure resources.
 
 ## Note on Azure Portal
