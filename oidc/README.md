@@ -20,3 +20,7 @@ These Federated Credentials allow you to use OpenID Connect within your GitHub w
 ## Note on Azure Portal
 
 The Azure Portal currently doesn't show these credentials for a Managed Identity, you can use the Az CLI in this case:  `az cli identity federated-credential list`
+
+## Diagram showing possible options
+
+![](diagram.png)
