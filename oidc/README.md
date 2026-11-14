@@ -4,6 +4,8 @@ This repo contains an example [Bicep template](deploy.bicep) that will deploy an
 
 These Federated Credentials allow you to use OpenID Connect within your GitHub workflows to authenticate with Azure.  In the example [parameter file](deploy.bicepparam), you'll find multiple examples on how to create Federated Credentials for usage by GitHub.
 
+For more information, see my blog post: https://www.nathannellans.com/post/all-about-github-actions-and-azure-openid-connect
+
 ## GitHub - Deployment Steps
 
 1. First, create the Managed Identity and the Federated Credential(s)
