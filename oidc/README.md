@@ -21,7 +21,7 @@ For more information, see my blog post: https://www.nathannellans.com/post/all-a
 
 ## Note on Azure Portal
 
-The Azure Portal currently doesn't show these credentials for a Managed Identity, you can use the Az CLI in this case:  `az cli identity federated-credential list`
+The Azure Portal currently doesn't show these credentials for a Managed Identity, you can use the Az CLI in this case:  `az identity federated-credential list`
 
 ## Diagram showing possible options
 
